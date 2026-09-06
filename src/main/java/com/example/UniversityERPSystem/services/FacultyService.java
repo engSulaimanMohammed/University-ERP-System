@@ -76,20 +76,4 @@ public class FacultyService {
         facultyRepository.save(facultyToDelete);
         return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
