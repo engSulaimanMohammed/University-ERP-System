@@ -58,6 +58,31 @@ public class InstructorService {
 
 
 
+    public Instructor updateInstructor(Long id, String name, String email,
+                                       String phoneNumber, String specialization, Department department) {
+        Instructor instructorToUpdate = getById(id);
+        if (instructorToUpdate == null) {
+            return null;
+        }
+        instructorToUpdate.setName(name);
+        instructorToUpdate.setEmail(email);
+        instructorToUpdate.setPhoneNumber(phoneNumber);
+        instructorToUpdate.setSpecialization(specialization);
+        instructorToUpdate.setDepartment(department);
+        instructorToUpdate.setUpdatedDate(new Date());
+        return instructorRepository.save(instructorToUpdate);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
