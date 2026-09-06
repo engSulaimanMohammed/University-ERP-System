@@ -17,6 +17,12 @@ public class UniversityController {
     }
 
 
+    @PostMapping("/add")
+    public University addUniversity(@RequestBody University university) {
+        return universityService.addUniversity(university);
+    }
+
+
 
 
 }
