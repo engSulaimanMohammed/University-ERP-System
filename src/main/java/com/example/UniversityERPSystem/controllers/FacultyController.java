@@ -21,39 +21,39 @@ public class FacultyController {
     @PostMapping("/add")
     public Faculty addFaculty(@RequestBody Faculty faculty) {
 
-        return facultyService.addFaculty(
-                faculty,
-                faculty.getUniversity()
-        );
+        return facultyService.addFaculty(faculty, faculty.getUniversity());
     }
-
 
 
     @GetMapping("/getAll")
     public List<Faculty> getAllFaculties() {
-        // Call getAllFaculties.
-        return null;
+        return facultyService.getAllFaculties();
     }
 
 
     @GetMapping("/getById/{id}")
     public Faculty getById(@PathVariable Long id) {
         // Call getById.
-        return null;
+        return facultyService.getById(id);
     }
+
 
 
     @PutMapping("/update/{id}")
     public Faculty updateFaculty(@PathVariable Long id,
                                  @RequestBody Faculty faculty) {
-        // Call updateFaculty from FacultyService
-        return null;
+        return facultyService.updateFaculty(
+                id,
+                faculty.getName(),
+                faculty.getDescription(),
+                faculty.getUniversity()
+        );
     }
 
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
         // Call deleteById from FacultyService
-        return null;
+        return facultyService.deleteById(id);
     }
 }
