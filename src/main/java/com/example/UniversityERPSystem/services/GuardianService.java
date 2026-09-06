@@ -58,6 +58,26 @@ public class GuardianService {
 
 
 
+    public Guardian updateGuardian(Long id, String name, String relationship,
+                                   String phoneNumber, Student student) {
+        Guardian guardianToUpdate = getById(id);
+        if (guardianToUpdate == null) {
+            return null;
+        }
+        guardianToUpdate.setName(name);
+        guardianToUpdate.setRelationship(relationship);
+        guardianToUpdate.setPhoneNumber(phoneNumber);
+        guardianToUpdate.setStudent(student);
+        guardianToUpdate.setUpdatedDate(new Date());
+        return guardianRepository.save(guardianToUpdate);
+    }
+
+
+
+
+
+
+
 
 
 
