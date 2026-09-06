@@ -48,16 +48,9 @@ public class ProgramController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    @DeleteMapping("/delete/{id}")
+    public Boolean deleteById(@PathVariable Long id) {
+        // Call deleteById from ProgramService
+        return null;
+    }
 }
