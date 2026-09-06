@@ -50,21 +50,4 @@ public class ExamController {
     public Boolean deleteById(@PathVariable Long id) {
         return null;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
