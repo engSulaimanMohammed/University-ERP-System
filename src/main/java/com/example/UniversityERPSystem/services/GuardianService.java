@@ -75,6 +75,20 @@ public class GuardianService {
 
 
 
+    public Boolean deleteById(Long id) {
+        Guardian guardianToDelete = getById(id);
+        if (guardianToDelete == null) {
+            return false;
+        }
+        guardianToDelete.setActive(false);
+        guardianToDelete.setUpdatedDate(new Date());
+        guardianRepository.save(guardianToDelete);
+        return true;
+    }
+
+
+
+
 
 
 
