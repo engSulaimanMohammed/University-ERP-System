@@ -59,19 +59,20 @@ public class StudentService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public Student updateStudent(Long id, String name, String gender,
+                                 String phoneNumber, String major, Program program) {
+        Student studentToUpdate = getById(id);
+        if (studentToUpdate == null) {
+            return null;
+        }
+        studentToUpdate.setName(name);
+        studentToUpdate.setGender(gender);
+        studentToUpdate.setPhoneNumber(phoneNumber);
+        studentToUpdate.setMajor(major);
+        studentToUpdate.setProgram(program);
+        studentToUpdate.setUpdatedDate(new Date());
+        return studentRepository.save(studentToUpdate);
+    }
 
 
 
