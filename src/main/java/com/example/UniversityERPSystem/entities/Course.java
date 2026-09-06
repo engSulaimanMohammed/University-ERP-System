@@ -18,6 +18,7 @@ public class Course extends BaseClass {
     @ManyToOne
     private Program program;
 
+    @JsonIgnore
     @ManyToOne
     private Instructor instructor;
 
