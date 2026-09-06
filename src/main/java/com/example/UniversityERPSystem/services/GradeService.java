@@ -8,7 +8,9 @@ import com.example.UniversityERPSystem.entities.Grade;
 import com.example.UniversityERPSystem.repositories.GradeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class GradeService {
@@ -32,6 +34,29 @@ public class GradeService {
         grade.setExam(exam);
         return gradeRepository.save(grade);
     }
+
+
+
+
+    public List<Grade> getAllGrades() {
+        List<Grade> grades = gradeRepository.findAll();
+        List<Grade> activeGrades = new ArrayList<>();
+        for (Grade grade : grades) {
+            if (grade.isActive()) {
+                activeGrades.add(grade);
+            }
+        }
+        return activeGrades;
+    }
+
+
+
+
+
+
+
+
+
 
 
 
