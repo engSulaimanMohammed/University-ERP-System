@@ -66,6 +66,20 @@ public class FacultyService {
     }
 
 
+    public Boolean deleteById(Long id) {
+        Faculty facultyToDelete = getById(id);
+        if (facultyToDelete == null) {
+            return false;
+        }
+        facultyToDelete.setActive(false);
+        facultyToDelete.setUpdatedDate(new Date());
+        facultyRepository.save(facultyToDelete);
+        return true;
+    }
+
+
+
+
 
 
 
