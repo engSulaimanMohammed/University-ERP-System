@@ -93,11 +93,10 @@ public class UniversityService {
     }
 
 
+    // Soft delete University by ID.
     public Boolean deleteById(Long id) {
+        // getById throws ResourceNotFoundException if not found or inactive.
         University universityToDelete = getById(id);
-        if (universityToDelete == null) {
-            return false;
-        }
         universityToDelete.setActive(false);
         universityToDelete.setUpdatedDate(new Date());
         universityRepository.save(universityToDelete);
