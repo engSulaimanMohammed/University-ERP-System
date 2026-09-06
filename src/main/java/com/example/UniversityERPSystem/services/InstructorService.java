@@ -6,7 +6,9 @@ import com.example.UniversityERPSystem.entities.Instructor;
 import com.example.UniversityERPSystem.repositories.InstructorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class InstructorService {
@@ -28,6 +30,28 @@ public class InstructorService {
         instructor.setDepartment(department);
         return instructorRepository.save(instructor);
     }
+
+
+
+
+    public List<Instructor> getAllInstructors() {
+        List<Instructor> instructors = instructorRepository.findAll();
+        List<Instructor> activeInstructors = new ArrayList<>();
+        for (Instructor instructor : instructors) {
+            if (instructor.isActive()) {
+                activeInstructors.add(instructor);
+            }
+        }
+        return activeInstructors;
+    }
+
+
+
+
+
+
+
+
 
 
 
