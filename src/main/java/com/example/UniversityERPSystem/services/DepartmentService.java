@@ -6,7 +6,9 @@ import com.example.UniversityERPSystem.entities.Faculty;
 import com.example.UniversityERPSystem.repositories.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DepartmentService {
@@ -27,6 +29,22 @@ public class DepartmentService {
         department.setFaculty(faculty);
         return departmentRepository.save(department);
     }
+
+
+
+    public List<Department> getAllDepartments() {
+        List<Department> departments = departmentRepository.findAll();
+        List<Department> activeDepartments = new ArrayList<>();
+        for (Department department : departments) {
+            if (department.isActive()) {
+                activeDepartments.add(department);
+            }
+        }
+        return activeDepartments;
+    }
+
+
+
 
 
 
