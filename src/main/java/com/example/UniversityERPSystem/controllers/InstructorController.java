@@ -18,32 +18,41 @@ public class InstructorController {
 
     @PostMapping("/add")
     public Instructor addInstructor(@RequestBody Instructor instructor) {
-        return null;
-    }
+        return instructorService.addInstructor(
+                instructor,
+                instructor.getDepartment()
+        );    }
 
 
     @GetMapping("/getAll")
     public List<Instructor> getAllInstructors() {
-        return null;
+        return instructorService.getAllInstructors();
     }
 
 
     @GetMapping("/getById/{id}")
     public Instructor getById(@PathVariable Long id) {
-        return null;
+        return instructorService.getById(id);
     }
 
 
     @PutMapping("/update/{id}")
     public Instructor updateInstructor(@PathVariable Long id,
                                        @RequestBody Instructor instructor) {
-        return null;
+        return instructorService.updateInstructor(
+                id,
+                instructor.getName(),
+                instructor.getEmail(),
+                instructor.getPhoneNumber(),
+                instructor.getSpecialization(),
+                instructor.getDepartment()
+        );
     }
 
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
-        return null;
+        return instructorService.deleteById(id);
     }
 }
 
