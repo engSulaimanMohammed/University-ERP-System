@@ -35,6 +35,16 @@ public class StudentController {
     }
 
 
+    @PutMapping("/update/{id}")
+    public Student updateStudent(@PathVariable Long id,
+                                 @RequestBody Student student) {
+        return null;
+    }
+
+
+
+
+
 
 
 
