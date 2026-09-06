@@ -51,6 +51,31 @@ public class FacultyService {
     }
 
 
+    // Add a new Faculty.
+    public Faculty addFaculty(Faculty faculty, Long universityId) {
+
+        if (faculty == null) {
+            throw new IllegalArgumentException(
+                    "Faculty cannot be null"
+            );
+        }
+        // Validate Faculty fields.
+        validateFacultyData(
+                faculty.getName(),
+                faculty.getDescription()
+        );
+        // Get an active University.
+        University university = universityService.getById(universityId);
+        faculty.setUniversity(university);
+        faculty.setActive(true);
+        faculty.setCreatedDate(new Date());
+        return facultyRepository.save(faculty);
+    }
+
+
+
+
+
 
 
 }

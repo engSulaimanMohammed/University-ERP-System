@@ -27,6 +27,7 @@ public class FacultyController {
 
     @GetMapping("/getAll")
     public List<Faculty> getAllFaculties() {
+        // Call getAllFaculties.
         return facultyService.getAllFaculties();
     }
 
@@ -38,22 +39,17 @@ public class FacultyController {
     }
 
 
-
     @PutMapping("/update/{id}")
     public Faculty updateFaculty(@PathVariable Long id,
                                  @RequestBody Faculty faculty) {
-        return facultyService.updateFaculty(
-                id,
-                faculty.getName(),
-                faculty.getDescription(),
-                faculty.getUniversity()
-        );
+        // Call updateFaculty from FacultyService
+        return null;
     }
 
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
         // Call deleteById from FacultyService
-        return facultyService.deleteById(id);
+        return null;
     }
 }
