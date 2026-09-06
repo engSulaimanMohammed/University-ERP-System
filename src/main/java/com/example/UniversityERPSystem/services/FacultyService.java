@@ -112,6 +112,31 @@ public class FacultyService {
 
 
 
+    // Update an existing Faculty.
+    public Faculty updateFaculty(Long id,
+                                 String name,
+                                 String description,
+                                 Long universityId) {
+
+        // Validate new Faculty data.
+        validateFacultyData(name, description);
+
+        // Get active Faculty.
+        Faculty facultyToUpdate = getById(id);
+
+        // Get active University.
+        University university = universityService.getById(universityId);
+
+        facultyToUpdate.setName(name);
+        facultyToUpdate.setDescription(description);
+        facultyToUpdate.setUniversity(university);
+        facultyToUpdate.setUpdatedDate(new Date());
+
+        return facultyRepository.save(facultyToUpdate);
+    }
+
+
+
 
 
 
