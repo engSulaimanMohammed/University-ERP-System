@@ -77,6 +77,25 @@ public class CourseService {
 
 
 
+    public Boolean deleteById(Long id) {
+        Course courseToDelete = getById(id);
+        if (courseToDelete == null) {
+            return false;
+        }
+        courseToDelete.setActive(false);
+        courseToDelete.setUpdatedDate(new Date());
+        courseRepository.save(courseToDelete);
+        return true;
+    }
+
+
+
+
+
+
+
+
+
 
 
 
