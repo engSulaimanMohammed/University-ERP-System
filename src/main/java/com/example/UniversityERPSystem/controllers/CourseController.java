@@ -46,21 +46,9 @@ public class CourseController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @DeleteMapping("/delete/{id}")
+    public Boolean deleteById(@PathVariable Long id) {
+        // Call deleteById from CourseService
+        return null;
+    }
 }
