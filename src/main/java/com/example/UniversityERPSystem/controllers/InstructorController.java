@@ -34,6 +34,16 @@ public class InstructorController {
     }
 
 
+    @PutMapping("/update/{id}")
+    public Instructor updateInstructor(@PathVariable Long id,
+                                       @RequestBody Instructor instructor) {
+        return null;
+    }
+
+
+
+
+
 
 
 
