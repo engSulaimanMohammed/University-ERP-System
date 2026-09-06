@@ -56,6 +56,28 @@ public class ProgramService {
 
 
 
+    public Program updateProgram(Long id, String name, String degreeLevel,
+                                 int durationYears, Department department) {
+        Program programToUpdate = getById(id);
+        if (programToUpdate == null) {
+            return null;
+        }
+        programToUpdate.setName(name);
+        programToUpdate.setDegreeLevel(degreeLevel);
+        programToUpdate.setDurationYears(durationYears);
+        programToUpdate.setDepartment(department);
+        programToUpdate.setUpdatedDate(new Date());
+        return programRepository.save(programToUpdate);
+    }
+
+
+
+
+
+
+
+
+
 
 
 
