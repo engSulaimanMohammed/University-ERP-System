@@ -1,4 +1,5 @@
 package com.example.UniversityERPSystem.dtos;
+import com.example.UniversityERPSystem.entities.Program;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -34,4 +35,16 @@ public class ProgramDTO {
     @NotNull(message = "Department ID cannot be null")
     @Positive(message = "Department ID must be greater than zero")
     private Long departmentId;
+
+
+    // Convert one Program Entity to ProgramDTO.
+    public static ProgramDTO convertToDTO(Program program) {
+        return ProgramDTO.builder().id(program.getId())
+                .name(program.getName()).degreeLevel(program.getDegreeLevel())
+                .durationYears(program.getDurationYears()).departmentId(
+                        program.getDepartment() != null ? program.getDepartment().getId()
+                                : null).build();
+    }
+
+
 }
