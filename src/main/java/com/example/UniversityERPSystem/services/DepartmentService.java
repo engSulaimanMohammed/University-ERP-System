@@ -116,6 +116,30 @@ public class DepartmentService {
     }
 
 
+    // Update an existing Department.
+    public Department updateDepartment(Long id,
+                                       String name,
+                                       String description,
+                                       Long facultyId) {
+
+        // Validate new Department data.
+        validateDepartmentData(name, description);
+
+        // Get active Department.
+        Department departmentToUpdate = getById(id);
+
+        // Get active Faculty.
+        Faculty faculty = facultyService.getById(facultyId);
+
+        departmentToUpdate.setName(name);
+        departmentToUpdate.setDescription(description);
+        departmentToUpdate.setFaculty(faculty);
+        departmentToUpdate.setUpdatedDate(new Date());
+
+        return departmentRepository.save(departmentToUpdate);
+    }
+
+
 
 
 
