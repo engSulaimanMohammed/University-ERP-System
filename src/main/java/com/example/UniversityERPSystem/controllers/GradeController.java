@@ -23,6 +23,12 @@ public class GradeController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<Grade> getAllGrades() {
+        return null;
+    }
+
+
 
 
 
