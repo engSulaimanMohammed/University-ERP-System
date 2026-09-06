@@ -24,6 +24,13 @@ public class FacultyController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<Faculty> getAllFaculties() {
+        // Call getAllFaculties.
+        return null;
+    }
+
+
 
 
 
