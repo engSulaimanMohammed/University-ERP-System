@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Data
 @Builder
@@ -39,6 +40,17 @@ public class FacultyDTO {
                 .universityId(faculty.getUniversity() != null ? faculty.getUniversity().getId()
                                 : null).build();
     }
+
+
+    // Convert List of Faculties to List of FacultyDTOs.
+    public static List<FacultyDTO> convertToDTO(List<Faculty> faculties) {
+        return faculties.stream()
+                .map(FacultyDTO::convertToDTO)
+                .toList();
+    }
+
+
+
 
 
 
