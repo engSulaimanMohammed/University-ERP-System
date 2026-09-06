@@ -19,21 +19,24 @@ public class ExamController {
 
     @PostMapping("/add")
     public Exam addExam(@RequestBody Exam exam) {
-        return null;
+        return examService.addExam(
+                exam,
+                exam.getCourse()
+        );
     }
 
 
 
     @GetMapping("/getAll")
     public List<Exam> getAllExams() {
-        return null;
+        return examService.getAllExams();
     }
 
 
 
     @GetMapping("/getById/{id}")
     public Exam getById(@PathVariable Long id) {
-        return null;
+        return examService.getById(id);
     }
 
 
@@ -41,13 +44,19 @@ public class ExamController {
     @PutMapping("/update/{id}")
     public Exam updateExam(@PathVariable Long id,
                            @RequestBody Exam exam) {
-        return null;
+        return examService.updateExam(
+                id,
+                exam.getTitle(),
+                exam.getExamDate(),
+                exam.getTotalMarks(),
+                exam.getCourse()
+        );
     }
 
 
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
-        return null;
+        return examService.deleteById(id);
     }
 }
