@@ -24,6 +24,19 @@ public class ProgramController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<Program> getAllPrograms() {
+        // Call getAllPrograms from ProgramService
+        return null;
+    }
+
+
+
+
+
+
+
+
 
 
 }
