@@ -23,6 +23,15 @@ public class GuardianController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<Guardian> getAllGuardians() {
+        return null;
+    }
+
+
+
+
+
 
 
 }
