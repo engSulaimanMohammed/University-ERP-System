@@ -73,6 +73,16 @@ public class FacultyService {
     }
 
 
+    // Get all active Faculties.
+    public List<Faculty> getAllFaculties() {
+
+        return facultyRepository.findAll()
+                .stream()
+                .filter(Faculty::isActive)
+                .toList();
+    }
+
+
 
 
 
