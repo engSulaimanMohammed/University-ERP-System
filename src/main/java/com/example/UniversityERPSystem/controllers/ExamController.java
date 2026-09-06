@@ -38,6 +38,17 @@ public class ExamController {
 
 
 
+    @PutMapping("/update/{id}")
+    public Exam updateExam(@PathVariable Long id,
+                           @RequestBody Exam exam) {
+        return null;
+    }
+
+
+
+
+
+
 
 
 
