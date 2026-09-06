@@ -16,6 +16,21 @@ public class InstructorController {
         this.instructorService = instructorService;
     }
 
+    @PostMapping("/add")
+    public Instructor addInstructor(@RequestBody Instructor instructor) {
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
