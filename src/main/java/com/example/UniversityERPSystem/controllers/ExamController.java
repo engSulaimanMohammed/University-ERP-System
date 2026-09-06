@@ -31,6 +31,16 @@ public class ExamController {
 
 
 
+    @GetMapping("/getById/{id}")
+    public Exam getById(@PathVariable Long id) {
+        return null;
+    }
+
+
+
+
+
+
 
 
 
