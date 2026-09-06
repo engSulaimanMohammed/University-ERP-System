@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -42,6 +43,26 @@ public class StudentService {
         }
         return activeStudents;
     }
+
+
+
+
+
+    public Student getById(Long id) {
+        Optional<Student> student = studentRepository.findById(id);
+        if (student.isPresent() && student.get().isActive()) {
+            return student.get();
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
 
 
 
