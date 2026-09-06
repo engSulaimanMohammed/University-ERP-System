@@ -32,6 +32,16 @@ public class CourseController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public Course getById(@PathVariable Long id) {
+        // Call getById from CourseService
+        return null;
+    }
+
+
+
+
+
 
 
 
