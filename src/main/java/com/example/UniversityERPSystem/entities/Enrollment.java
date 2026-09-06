@@ -19,6 +19,7 @@ public class Enrollment extends BaseClass  {
     @ManyToOne
     private Student student;
 
+    @JsonIgnore
     @ManyToOne
     private Course course;
 
