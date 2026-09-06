@@ -74,14 +74,21 @@ public class UniversityService {
 
 
 
-    public University updateUniversity(Long id, String name, String location) {
+    // Update an existing University.
+    public University updateUniversity(Long id,
+                                       String name,
+                                       String location) {
+
+        // Validate new data.
+        validateUniversityData(name, location);
+
+        // getById throws ResourceNotFoundException if not found or inactive.
         University universityToUpdate = getById(id);
-        if (universityToUpdate == null) {
-            return null;
-        }
+
         universityToUpdate.setName(name);
         universityToUpdate.setLocation(location);
         universityToUpdate.setUpdatedDate(new Date());
+
         return universityRepository.save(universityToUpdate);
     }
 
