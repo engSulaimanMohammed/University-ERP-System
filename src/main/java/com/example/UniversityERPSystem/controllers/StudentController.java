@@ -19,31 +19,41 @@ public class StudentController {
 
     @PostMapping("/add")
     public Student addStudent(@RequestBody Student student) {
-        return null;
+        return studentService.addStudent(
+                student,
+                student.getProgram()
+        );
     }
 
 
     @GetMapping("/getAll")
     public List<Student> getAllStudents() {
-        return null;
+        return studentService.getAllStudents();
     }
 
 
     @GetMapping("/getById/{id}")
     public Student getById(@PathVariable Long id) {
-        return null;
+        return studentService.getById(id);
     }
 
 
     @PutMapping("/update/{id}")
     public Student updateStudent(@PathVariable Long id,
                                  @RequestBody Student student) {
-        return null;
+        return studentService.updateStudent(
+                id,
+                student.getName(),
+                student.getGender(),
+                student.getPhoneNumber(),
+                student.getMajor(),
+                student.getProgram()
+        );
     }
 
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
-        return null;
+        return studentService.deleteById(id);
     }
 }
