@@ -20,8 +20,13 @@ public class FacultyController {
 
     @PostMapping("/add")
     public Faculty addFaculty(@RequestBody Faculty faculty) {
-        return null;
+
+        return facultyService.addFaculty(
+                faculty,
+                faculty.getUniversity()
+        );
     }
+
 
 
     @GetMapping("/getAll")
