@@ -150,18 +150,4 @@ public class FacultyService {
         return true;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
