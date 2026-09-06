@@ -77,6 +77,29 @@ public class InstructorService {
 
 
 
+    public Boolean deleteById(Long id) {
+        Instructor instructorToDelete = getById(id);
+        if (instructorToDelete == null) {
+            return false;
+        }
+        instructorToDelete.setActive(false);
+        instructorToDelete.setUpdatedDate(new Date());
+        instructorRepository.save(instructorToDelete);
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
