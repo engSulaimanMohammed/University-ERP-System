@@ -71,6 +71,24 @@ public class ProgramService {
     }
 
 
+    public Boolean deleteById(Long id) {
+        Program programToDelete = getById(id);
+        if (programToDelete == null) {
+            return false;
+        }
+        programToDelete.setActive(false);
+        programToDelete.setUpdatedDate(new Date());
+        programRepository.save(programToDelete);
+        return true;
+    }
+
+
+
+
+
+
+
+
 
 
 
