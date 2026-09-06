@@ -42,6 +42,14 @@ public class GuardianController {
     }
 
 
+    @DeleteMapping("/delete/{id}")
+    public Boolean deleteById(@PathVariable Long id) {
+        return null;
+    }
+}
+
+
+
 
 
 
