@@ -46,16 +46,9 @@ public class DepartmentController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    @DeleteMapping("/delete/{id}")
+    public Boolean deleteById(@PathVariable Long id) {
+        // Call deleteById from DepartmentService
+        return null;
+    }
 }
