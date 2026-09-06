@@ -137,6 +137,21 @@ public class FacultyService {
 
 
 
+    // Soft delete Faculty by ID.
+    public Boolean deleteById(Long id) {
+
+        Faculty facultyToDelete = getById(id);
+
+        facultyToDelete.setActive(false);
+        facultyToDelete.setUpdatedDate(new Date());
+
+        facultyRepository.save(facultyToDelete);
+
+        return true;
+    }
+
+
+
 
 
 
