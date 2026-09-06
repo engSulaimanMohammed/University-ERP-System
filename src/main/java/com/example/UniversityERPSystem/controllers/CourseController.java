@@ -25,6 +25,15 @@ public class CourseController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<Course> getAllCourses() {
+        // Call getAllCourses from CourseService
+        return null;
+    }
+
+
+
+
 
 
 
