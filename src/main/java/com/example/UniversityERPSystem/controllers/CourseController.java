@@ -39,6 +39,16 @@ public class CourseController {
     }
 
 
+    @PutMapping("/update/{id}")
+    public Course updateCourse(@PathVariable Long id,
+                               @RequestBody Course course) {
+        return null;
+    }
+
+
+
+
+
 
 
 
