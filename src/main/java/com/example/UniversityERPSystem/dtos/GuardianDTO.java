@@ -12,6 +12,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -56,6 +58,15 @@ public class GuardianDTO {
                                 : null
                 )
                 .build();
+    }
+
+
+    // Convert List of Guardians to List of GuardianDTOs.
+    public static List<GuardianDTO> convertToDTO(List<Guardian> guardians) {
+
+        return guardians.stream()
+                .map(GuardianDTO::convertToDTO)
+                .toList();
     }
 
 
