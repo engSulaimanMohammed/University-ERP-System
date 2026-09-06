@@ -71,4 +71,29 @@ public class UniversityService {
         universityRepository.save(universityToDelete);
         return true;
     }
+
+
+    // Validate University fields.
+    private void validateUniversityData(String name, String location) {
+
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("University name cannot be blank");
+        }
+
+        if (name.length() > 255) {
+            throw new IllegalArgumentException(
+                    "University name cannot exceed 255 characters"
+            );
+        }
+
+        if (location == null || location.trim().isEmpty()) {
+            throw new IllegalArgumentException("University location cannot be blank");
+        }
+
+        if (location.length() > 255) {
+            throw new IllegalArgumentException(
+                    "University location cannot exceed 255 characters"
+            );
+        }
+    }
 }
