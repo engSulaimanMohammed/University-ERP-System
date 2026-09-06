@@ -31,6 +31,14 @@ public class DepartmentController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public Department getById(@PathVariable Long id) {
+        // Call getById from DepartmentService
+        return null;
+    }
+
+
+
 
 
 
