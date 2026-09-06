@@ -17,6 +17,19 @@ public class CourseController {
     }
 
 
+    @PostMapping("/add")
+    public Course addCourse(@RequestBody Course course) {
+        // Call addCourse from CourseService
+        // Course also needs Program and Instructor
+        return null;
+    }
+
+
+
+
+
+
+
 
 
 
