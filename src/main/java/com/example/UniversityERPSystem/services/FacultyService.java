@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FacultyService {
@@ -40,6 +41,18 @@ public class FacultyService {
         }
         return activeFaculties;
     }
+
+
+
+    public Faculty getById(Long id) {
+        Optional<Faculty> faculty = facultyRepository.findById(id);
+        if (faculty.isPresent() && faculty.get().isActive()) {
+            return faculty.get();
+        }
+        return null;
+    }
+
+
 
 
 
