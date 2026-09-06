@@ -1,5 +1,11 @@
 package com.example.UniversityERPSystem.dtos;
 
+
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,11 +21,22 @@ public class ExamDTO {
 
     private Long id;
 
+
+    @NotBlank(message = "Exam title cannot be blank")
+    @Size(max = 255, message = "Exam title cannot exceed 255 characters")
     private String title;
 
+
+    @NotNull(message = "Exam date cannot be null")
+    @Future(message = "Exam date must be in the future")
     private Date examDate;
 
+
+    @Positive(message = "Total marks must be greater than zero")
     private double totalMarks;
 
+
+    @NotNull(message = "Course ID cannot be null")
+    @Positive(message = "Course ID must be greater than zero")
     private Long courseId;
 }
