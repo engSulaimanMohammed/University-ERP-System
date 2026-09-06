@@ -7,7 +7,9 @@ import com.example.UniversityERPSystem.entities.Student;
 import com.example.UniversityERPSystem.repositories.GuardianRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class GuardianService {
@@ -29,6 +31,24 @@ public class GuardianService {
         guardian.setStudent(student);
         return guardianRepository.save(guardian);
     }
+
+
+
+    public List<Guardian> getAllGuardians() {
+        List<Guardian> guardians = guardianRepository.findAll();
+        List<Guardian> activeGuardians = new ArrayList<>();
+        for (Guardian guardian : guardians) {
+            if (guardian.isActive()) {
+                activeGuardians.add(guardian);
+            }
+        }
+        return activeGuardians;
+    }
+
+
+
+
+
 
 
 
