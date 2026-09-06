@@ -55,6 +55,22 @@ public class DepartmentService {
     }
 
 
+    public Department updateDepartment(Long id, String name, String description, Faculty faculty) {
+        Department departmentToUpdate = getById(id);
+        if (departmentToUpdate == null) {
+            return null;
+        }
+        departmentToUpdate.setName(name);
+        departmentToUpdate.setDescription(description);
+        departmentToUpdate.setFaculty(faculty);
+        departmentToUpdate.setUpdatedDate(new Date());
+        return departmentRepository.save(departmentToUpdate);
+    }
+
+
+
+
+
 
 
 
