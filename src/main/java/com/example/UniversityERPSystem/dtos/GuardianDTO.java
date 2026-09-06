@@ -1,6 +1,7 @@
 package com.example.UniversityERPSystem.dtos;
 
 
+import com.example.UniversityERPSystem.entities.Guardian;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,6 +41,22 @@ public class GuardianDTO {
     @NotNull(message = "Student ID cannot be null")
     @Positive(message = "Student ID must be greater than zero")
     private Long studentId;
+
+
+    // Convert one Guardian Entity to GuardianDTO.
+    public static GuardianDTO convertToDTO(Guardian guardian) {
+
+        return GuardianDTO.builder()
+                .id(guardian.getId())
+                .name(guardian.getName())
+                .relationship(guardian.getRelationship())
+                .studentId(
+                        guardian.getStudent() != null
+                                ? guardian.getStudent().getId()
+                                : null
+                )
+                .build();
+    }
 
 
 }
