@@ -1,6 +1,7 @@
 package com.example.UniversityERPSystem.dtos;
 
 
+import com.example.UniversityERPSystem.entities.Instructor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -47,6 +48,26 @@ public class InstructorDTO {
     @NotNull(message = "Department ID cannot be null")
     @Positive(message = "Department ID must be greater than zero")
     private Long departmentId;
+
+    // Convert one Instructor Entity to InstructorDTO.
+    public static InstructorDTO convertToDTO(Instructor instructor) {
+
+        return InstructorDTO.builder()
+                .id(instructor.getId())
+                .name(instructor.getName())
+                .email(instructor.getEmail())
+                .specialization(instructor.getSpecialization())
+                .departmentId(
+                        instructor.getDepartment() != null
+                                ? instructor.getDepartment().getId()
+                                : null
+                )
+                .build();
+    }
+
+
+
+
 
 
 
