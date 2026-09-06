@@ -29,6 +29,16 @@ public class GradeController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public Grade getById(@PathVariable Long id) {
+        return null;
+    }
+
+
+
+
+
+
 
 
 
