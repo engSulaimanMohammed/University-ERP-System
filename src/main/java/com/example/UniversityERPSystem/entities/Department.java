@@ -1,6 +1,7 @@
 package com.example.UniversityERPSystem.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -13,6 +14,7 @@ public class Department extends BaseClass {
     private String name;
     private String description;
 
+    @JsonIgnore
     @ManyToOne
     private Faculty faculty;
 
