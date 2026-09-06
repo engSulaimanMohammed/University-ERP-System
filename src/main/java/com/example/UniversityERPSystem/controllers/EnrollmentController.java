@@ -17,5 +17,14 @@ public class EnrollmentController {
     }
 
 
+    @PostMapping("/add")
+    public Enrollment addEnrollment(@RequestBody Enrollment enrollment) {
+        return null;
+    }
+
+
+
+
+
 
 }
