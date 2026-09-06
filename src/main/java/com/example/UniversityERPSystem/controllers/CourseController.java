@@ -1,5 +1,6 @@
 package com.example.UniversityERPSystem.controllers;
 
+import com.example.UniversityERPSystem.dtos.AssignInstructorDTO;
 import com.example.UniversityERPSystem.dtos.CourseDTO;
 import com.example.UniversityERPSystem.entities.Course;
 import com.example.UniversityERPSystem.services.CourseService;
@@ -26,21 +27,18 @@ public class CourseController {
     public CourseDTO addCourse(
             @Valid @RequestBody CourseDTO courseDTO) {
 
-        // Create Course Entity from DTO.
         Course course = new Course();
 
         course.setTitle(courseDTO.getTitle());
         course.setCourseCode(courseDTO.getCourseCode());
         course.setCreditHours(courseDTO.getCreditHours());
 
-        // Save Course using Program ID and optional Instructor ID.
         Course savedCourse = courseService.addCourse(
                 course,
                 courseDTO.getProgramId(),
                 courseDTO.getInstructorId()
         );
 
-        // Return DTO instead of raw Entity.
         return CourseDTO.convertToDTO(savedCourse);
     }
 
@@ -57,11 +55,12 @@ public class CourseController {
 
     // Get active Course by ID.
     @GetMapping("/getById/{id}")
-    public CourseDTO getById(@PathVariable Long id) {
+    public CourseDTO getById(
+            @PathVariable Long id) {
 
-        Course course = courseService.getById(id);
-
-        return CourseDTO.convertToDTO(course);
+        return CourseDTO.convertToDTO(
+                courseService.getById(id)
+        );
     }
 
 
@@ -80,27 +79,26 @@ public class CourseController {
                 courseDTO.getInstructorId()
         );
 
-        // Return updated Course as DTO.
         return CourseDTO.convertToDTO(updatedCourse);
     }
 
 
     // Assign an Instructor to a Course.
-    @PutMapping("/assignInstructor/{courseId}/{instructorId}")
+    @PutMapping("/assignInstructor")
     public CourseDTO assignInstructor(
-            @PathVariable Long courseId,
-            @PathVariable Long instructorId) {
+            @Valid @RequestBody AssignInstructorDTO assignInstructorDTO) {
 
-        Course updatedCourse = courseService.assignInstructor(
-                courseId,
-                instructorId
-        );
+        Course updatedCourse =
+                courseService.assignInstructor(
+                        assignInstructorDTO.getCourseId(),
+                        assignInstructorDTO.getInstructorId()
+                );
 
         return CourseDTO.convertToDTO(updatedCourse);
     }
 
 
-    // Get all active Courses inside a specific Program.
+    // Get active Courses inside a Program.
     @GetMapping("/byProgram/{programId}")
     public List<CourseDTO> getCoursesByProgram(
             @PathVariable Long programId) {
@@ -111,7 +109,7 @@ public class CourseController {
     }
 
 
-    // Get all active Courses taught by a specific Instructor.
+    // Get Courses taught by an Instructor.
     @GetMapping("/byInstructor/{instructorId}")
     public List<CourseDTO> getCoursesByInstructor(
             @PathVariable Long instructorId) {
@@ -122,7 +120,7 @@ public class CourseController {
     }
 
 
-    // Get all active Courses without an assigned Instructor.
+    // Get Courses without an Instructor.
     @GetMapping("/withoutInstructor")
     public List<CourseDTO> getCoursesWithoutInstructor() {
 
@@ -132,19 +130,18 @@ public class CourseController {
     }
 
 
-    // Soft delete Course by ID.
+    // Soft delete Course.
     @DeleteMapping("/delete/{id}")
-    public CourseDTO deleteById(@PathVariable Long id) {
+    public CourseDTO deleteById(
+            @PathVariable Long id) {
 
-        // Get Course before Soft Delete.
-        CourseDTO courseDTO = CourseDTO.convertToDTO(
-                courseService.getById(id)
-        );
+        CourseDTO courseDTO =
+                CourseDTO.convertToDTO(
+                        courseService.getById(id)
+                );
 
-        // Perform Soft Delete.
         courseService.deleteById(id);
 
-        // Return DTO instead of Boolean or raw Entity.
         return courseDTO;
     }
 }
