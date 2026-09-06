@@ -7,7 +7,9 @@ import com.example.UniversityERPSystem.entities.Program;
 import com.example.UniversityERPSystem.repositories.CourseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class CourseService {
@@ -29,6 +31,26 @@ public class CourseService {
         course.setInstructor(instructor);
         return courseRepository.save(course);
     }
+
+
+
+    public List<Course> getAllCourses() {
+        List<Course> courses = courseRepository.findAll();
+        List<Course> activeCourses = new ArrayList<>();
+        for (Course course : courses) {
+            if (course.isActive()) {
+                activeCourses.add(course);
+            }
+        }
+        return activeCourses;
+    }
+
+
+
+
+
+
+
 
 
 
