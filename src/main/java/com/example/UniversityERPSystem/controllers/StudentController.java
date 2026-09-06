@@ -17,5 +17,15 @@ public class StudentController {
     }
 
 
+    @PostMapping("/add")
+    public Student addStudent(@RequestBody Student student) {
+        return null;
+    }
+
+
+
+
+
+
 
 }
