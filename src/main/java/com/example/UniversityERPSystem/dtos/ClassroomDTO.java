@@ -1,5 +1,6 @@
 package com.example.UniversityERPSystem.dtos;
 
+import com.example.UniversityERPSystem.entities.Classroom;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -35,4 +36,20 @@ public class ClassroomDTO {
     @NotNull(message = "Department ID cannot be null")
     @Positive(message = "Department ID must be greater than zero")
     private Long departmentId;
+
+    // Convert one Classroom Entity to ClassroomDTO.
+    public static ClassroomDTO convertToDTO(Classroom classroom) {
+
+        return ClassroomDTO.builder()
+                .id(classroom.getId())
+                .roomNumber(classroom.getRoomNumber())
+                .floor(classroom.getFloor())
+                .capacity(classroom.getCapacity())
+                .departmentId(
+                        classroom.getDepartment() != null
+                                ? classroom.getDepartment().getId()
+                                : null
+                )
+                .build();
+    }
 }
