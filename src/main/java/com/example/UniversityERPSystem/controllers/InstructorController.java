@@ -1,4 +1,22 @@
 package com.example.UniversityERPSystem.controllers;
 
+import com.example.UniversityERPSystem.entities.Instructor;
+import com.example.UniversityERPSystem.services.InstructorService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/instructor")
 public class InstructorController {
+
+    private final InstructorService instructorService;
+
+    public InstructorController(InstructorService instructorService) {
+        this.instructorService = instructorService;
+    }
+
+
+
+
 }
