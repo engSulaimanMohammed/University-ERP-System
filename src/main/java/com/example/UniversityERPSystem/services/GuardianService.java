@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GuardianService {
@@ -44,6 +45,24 @@ public class GuardianService {
         }
         return activeGuardians;
     }
+
+
+
+    public Guardian getById(Long id) {
+        Optional<Guardian> guardian = guardianRepository.findById(id);
+        if (guardian.isPresent() && guardian.get().isActive()) {
+            return guardian.get();
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
 
 
 
