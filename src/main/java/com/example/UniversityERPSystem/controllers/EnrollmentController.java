@@ -1,7 +1,12 @@
 package com.example.UniversityERPSystem.controllers;
 
+import com.example.UniversityERPSystem.dtos.CourseDTO;
+import com.example.UniversityERPSystem.dtos.EnrollmentDTO;
+import com.example.UniversityERPSystem.dtos.ProgramEnrollmentStatsDTO;
+import com.example.UniversityERPSystem.dtos.StudentDTO;
 import com.example.UniversityERPSystem.entities.Enrollment;
 import com.example.UniversityERPSystem.services.EnrollmentService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,49 +17,168 @@ public class EnrollmentController {
 
     private final EnrollmentService enrollmentService;
 
+
+    // Constructor Injection.
     public EnrollmentController(EnrollmentService enrollmentService) {
         this.enrollmentService = enrollmentService;
     }
 
 
+    // Add a new Enrollment.
     @PostMapping("/add")
-    public Enrollment addEnrollment(@RequestBody Enrollment enrollment) {
-        return enrollmentService.addEnrollment(
-                enrollment,
-                enrollment.getStudent(),
-                enrollment.getCourse()
+    public EnrollmentDTO addEnrollment(
+            @Valid @RequestBody EnrollmentDTO enrollmentDTO) {
+
+        // Create Enrollment Entity from DTO.
+        Enrollment enrollment = new Enrollment();
+
+        enrollment.setEnrollmentDate(
+                enrollmentDTO.getEnrollmentDate()
         );
+
+        enrollment.setStatus(
+                enrollmentDTO.getStatus()
+        );
+
+        // Save Enrollment using Student ID and Course ID.
+        Enrollment savedEnrollment =
+                enrollmentService.addEnrollment(
+                        enrollment,
+                        enrollmentDTO.getStudentId(),
+                        enrollmentDTO.getCourseId()
+                );
+
+        // Return DTO instead of raw Entity.
+        return EnrollmentDTO.convertToDTO(savedEnrollment);
     }
 
 
-
+    // Get all active Enrollments.
     @GetMapping("/getAll")
-    public List<Enrollment> getAllEnrollments() {
-        return enrollmentService.getAllEnrollments();
-    }
+    public List<EnrollmentDTO> getAllEnrollments() {
 
-
-    @GetMapping("/getById/{id}")
-    public Enrollment getById(@PathVariable Long id) {
-        return enrollmentService.getById(id);
-    }
-
-
-    @PutMapping("/update/{id}")
-    public Enrollment updateEnrollment(@PathVariable Long id,
-                                       @RequestBody Enrollment enrollment) {
-        return enrollmentService.updateEnrollment(
-                id,
-                enrollment.getEnrollmentDate(),
-                enrollment.getStatus(),
-                enrollment.getStudent(),
-                enrollment.getCourse()
+        return EnrollmentDTO.convertToDTO(
+                enrollmentService.getAllEnrollments()
         );
     }
 
 
+    // Get active Enrollment by ID.
+    @GetMapping("/getById/{id}")
+    public EnrollmentDTO getById(
+            @PathVariable Long id) {
+
+        Enrollment enrollment =
+                enrollmentService.getById(id);
+
+        return EnrollmentDTO.convertToDTO(enrollment);
+    }
+
+
+    // Update an existing Enrollment.
+    @PutMapping("/update/{id}")
+    public EnrollmentDTO updateEnrollment(
+            @PathVariable Long id,
+            @Valid @RequestBody EnrollmentDTO enrollmentDTO) {
+
+        Enrollment updatedEnrollment =
+                enrollmentService.updateEnrollment(
+                        id,
+                        enrollmentDTO.getEnrollmentDate(),
+                        enrollmentDTO.getStatus(),
+                        enrollmentDTO.getStudentId(),
+                        enrollmentDTO.getCourseId()
+                );
+
+        return EnrollmentDTO.convertToDTO(
+                updatedEnrollment
+        );
+    }
+
+
+    // Drop an Enrollment.
+    @PutMapping("/drop/{id}")
+    public EnrollmentDTO dropEnrollment(
+            @PathVariable Long id) {
+
+        Enrollment droppedEnrollment =
+                enrollmentService.dropEnrollment(id);
+
+        return EnrollmentDTO.convertToDTO(
+                droppedEnrollment
+        );
+    }
+
+
+    // Get all Courses a Student is enrolled in.
+    @GetMapping("/coursesByStudent/{studentId}")
+    public List<CourseDTO> getCoursesByStudent(
+            @PathVariable Long studentId) {
+
+        return CourseDTO.convertToDTO(
+                enrollmentService
+                        .getCoursesByStudent(studentId)
+        );
+    }
+
+
+    // Get all Students enrolled in a Course.
+    @GetMapping("/studentsByCourse/{courseId}")
+    public List<StudentDTO> getStudentsByCourse(
+            @PathVariable Long courseId) {
+
+        return StudentDTO.convertToDTO(
+                enrollmentService
+                        .getStudentsByCourse(courseId)
+        );
+    }
+
+
+    // Get active Enrollments by Status.
+    @GetMapping("/byStatus/{status}")
+    public List<EnrollmentDTO> getEnrollmentsByStatus(
+            @PathVariable String status) {
+
+        return EnrollmentDTO.convertToDTO(
+                enrollmentService
+                        .getEnrollmentsByStatus(status)
+        );
+    }
+
+
+    // Get total actively enrolled Students in a Program.
+    @GetMapping("/programStats/{programId}")
+    public ProgramEnrollmentStatsDTO getProgramEnrollmentStats(
+            @PathVariable Long programId) {
+
+        long totalEnrolledStudents =
+                enrollmentService
+                        .getTotalEnrolledStudentsByProgram(
+                                programId
+                        );
+
+        return ProgramEnrollmentStatsDTO.builder()
+                .programId(programId)
+                .totalEnrolledStudents(totalEnrolledStudents)
+                .build();
+    }
+
+
+    // Soft delete Enrollment by ID.
     @DeleteMapping("/delete/{id}")
-    public Boolean deleteById(@PathVariable Long id) {
-        return enrollmentService.deleteById(id);
+    public EnrollmentDTO deleteById(
+            @PathVariable Long id) {
+
+        // Get Enrollment before Soft Delete.
+        EnrollmentDTO enrollmentDTO =
+                EnrollmentDTO.convertToDTO(
+                        enrollmentService.getById(id)
+                );
+
+        // Perform Soft Delete.
+        enrollmentService.deleteById(id);
+
+        // Return DTO.
+        return enrollmentDTO;
     }
 }
