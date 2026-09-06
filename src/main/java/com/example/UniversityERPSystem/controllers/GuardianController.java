@@ -17,5 +17,13 @@ public class GuardianController {
     }
 
 
+    @PostMapping("/add")
+    public Guardian addGuardian(@RequestBody Guardian guardian) {
+        return null;
+    }
+
+
+
+
 }
 
