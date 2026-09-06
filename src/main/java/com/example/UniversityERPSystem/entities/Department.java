@@ -1,4 +1,15 @@
 package com.example.UniversityERPSystem.entities;
 
-public class Department {
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Department extends BaseClass {
+
+    private String name;
+    private String description;
+
+    @ManyToOne
+    private Faculty faculty;
 }
