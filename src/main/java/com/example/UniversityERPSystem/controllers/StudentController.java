@@ -29,6 +29,17 @@ public class StudentController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public Student getById(@PathVariable Long id) {
+        return null;
+    }
+
+
+
+
+
+
+
 
 
 
