@@ -36,6 +36,18 @@ public class ClassroomController {
 
 
 
+    @PutMapping("/update/{id}")
+    public Classroom updateClassroom(@PathVariable Long id,
+                                     @RequestBody Classroom classroom) {
+        return null;
+    }
+
+
+
+
+
+
+
 
 
 
