@@ -20,21 +20,24 @@ public class ProgramController {
     @PostMapping("/add")
     public Program addProgram(@RequestBody Program program) {
         // Call addProgram from ProgramService
-        return null;
+        return programService.addProgram(
+                program,
+                program.getDepartment()
+        );
     }
 
 
     @GetMapping("/getAll")
     public List<Program> getAllPrograms() {
         // Call getAllPrograms from ProgramService
-        return null;
+        return programService.getAllPrograms();
     }
 
 
     @GetMapping("/getById/{id}")
     public Program getById(@PathVariable Long id) {
         // Call getById from ProgramService
-        return null;
+        return programService.getById(id);
     }
 
 
@@ -43,14 +46,19 @@ public class ProgramController {
                                  @RequestBody Program program) {
 
         // Call updateProgram from ProgramService
-        return null;
-    }
+        return programService.updateProgram(
+                id,
+                program.getName(),
+                program.getDegreeLevel(),
+                program.getDurationYears(),
+                program.getDepartment()
+        );    }
 
 
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
         // Call deleteById from ProgramService
-        return null;
+        return programService.deleteById(id);
     }
 }
