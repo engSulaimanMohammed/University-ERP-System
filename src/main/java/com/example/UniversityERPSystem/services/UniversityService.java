@@ -1,35 +1,86 @@
 package com.example.UniversityERPSystem.services;
 
+import com.example.UniversityERPSystem.dtos.UniversityStatsDTO;
 import com.example.UniversityERPSystem.entities.University;
 import com.example.UniversityERPSystem.exceptions.ResourceNotFoundException;
+import com.example.UniversityERPSystem.repositories.DepartmentRepository;
+import com.example.UniversityERPSystem.repositories.FacultyRepository;
+import com.example.UniversityERPSystem.repositories.StudentRepository;
 import com.example.UniversityERPSystem.repositories.UniversityRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UniversityService {
 
     private final UniversityRepository universityRepository;
+    private final FacultyRepository facultyRepository;
+    private final DepartmentRepository departmentRepository;
+    private final StudentRepository studentRepository;
 
-    public UniversityService(UniversityRepository universityRepository) {
+
+    // Constructor Injection.
+    public UniversityService(UniversityRepository universityRepository,
+                             FacultyRepository facultyRepository,
+                             DepartmentRepository departmentRepository,
+                             StudentRepository studentRepository) {
+
         this.universityRepository = universityRepository;
+        this.facultyRepository = facultyRepository;
+        this.departmentRepository = departmentRepository;
+        this.studentRepository = studentRepository;
     }
+
+
+    // Validate University fields.
+    private void validateUniversityData(String name,
+                                        String location) {
+
+        // Validate University name.
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "University name cannot be blank"
+            );
+        }
+
+        if (name.length() > 255) {
+            throw new IllegalArgumentException(
+                    "University name cannot exceed 255 characters"
+            );
+        }
+
+
+        // Validate University location.
+        if (location == null || location.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "University location cannot be blank"
+            );
+        }
+
+        if (location.length() > 255) {
+            throw new IllegalArgumentException(
+                    "University location cannot exceed 255 characters"
+            );
+        }
+    }
+
 
     // Add a new University.
     public University addUniversity(University university) {
+
         if (university == null) {
-            throw new IllegalArgumentException("University cannot be null");
+            throw new IllegalArgumentException(
+                    "University cannot be null"
+            );
         }
-        // Validate University data.
+
         validateUniversityData(
                 university.getName(),
                 university.getLocation()
         );
-        // Set BaseClass fields.
+
         university.setActive(true);
         university.setCreatedDate(new Date());
 
@@ -39,6 +90,7 @@ public class UniversityService {
 
     // Get all active Universities.
     public List<University> getAllUniversities() {
+
         return universityRepository.findAll()
                 .stream()
                 .filter(University::isActive)
@@ -55,14 +107,14 @@ public class UniversityService {
             );
         }
 
-        University university = universityRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "University not found with id: " + id
-                        )
-                );
+        University university =
+                universityRepository.findById(id)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "University not found with id: " + id
+                                )
+                        );
 
-        // Soft-deleted Universities must not be returned.
         if (!university.isActive()) {
             throw new ResourceNotFoundException(
                     "University not found with id: " + id
@@ -73,16 +125,13 @@ public class UniversityService {
     }
 
 
-
     // Update an existing University.
     public University updateUniversity(Long id,
                                        String name,
                                        String location) {
 
-        // Validate new data.
         validateUniversityData(name, location);
 
-        // getById throws ResourceNotFoundException if not found or inactive.
         University universityToUpdate = getById(id);
 
         universityToUpdate.setName(name);
@@ -93,38 +142,50 @@ public class UniversityService {
     }
 
 
-    // Soft delete University by ID.
-    public Boolean deleteById(Long id) {
-        // getById throws ResourceNotFoundException if not found or inactive.
-        University universityToDelete = getById(id);
-        universityToDelete.setActive(false);
-        universityToDelete.setUpdatedDate(new Date());
-        universityRepository.save(universityToDelete);
-        return true;
+    // Get University statistics.
+    public UniversityStatsDTO getUniversityStats(Long universityId) {
+
+        // Make sure University exists and is active.
+        University university = getById(universityId);
+
+        long faculties =
+                facultyRepository
+                        .countByUniversity_IdAndIsActiveTrue(
+                                universityId
+                        );
+
+        long departments =
+                departmentRepository
+                        .countActiveDepartmentsByUniversity(
+                                universityId
+                        );
+
+        long students =
+                studentRepository
+                        .countActiveStudentsByUniversity(
+                                universityId
+                        );
+
+        return UniversityStatsDTO.builder()
+                .universityId(university.getId())
+                .universityName(university.getName())
+                .totalActiveFaculties(faculties)
+                .totalActiveDepartments(departments)
+                .totalActiveStudents(students)
+                .build();
     }
 
 
-    // Validate University fields.
-    private void validateUniversityData(String name, String location) {
+    // Soft delete University by ID.
+    public Boolean deleteById(Long id) {
 
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("University name cannot be blank");
-        }
+        University universityToDelete = getById(id);
 
-        if (name.length() > 255) {
-            throw new IllegalArgumentException(
-                    "University name cannot exceed 255 characters"
-            );
-        }
+        universityToDelete.setActive(false);
+        universityToDelete.setUpdatedDate(new Date());
 
-        if (location == null || location.trim().isEmpty()) {
-            throw new IllegalArgumentException("University location cannot be blank");
-        }
+        universityRepository.save(universityToDelete);
 
-        if (location.length() > 255) {
-            throw new IllegalArgumentException(
-                    "University location cannot exceed 255 characters"
-            );
-        }
+        return true;
     }
 }
