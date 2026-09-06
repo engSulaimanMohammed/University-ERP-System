@@ -3,9 +3,12 @@ package com.example.UniversityERPSystem.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
-public class Program {
+public class Program extends BaseClass {
 
     private String name;
     private String degreeLevel;
@@ -13,4 +16,8 @@ public class Program {
 
     @ManyToOne
     private Department department;
+
+
+    @OneToMany(mappedBy = "program")
+    private List<Course> courses;
 }
