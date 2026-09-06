@@ -5,6 +5,7 @@ import com.example.UniversityERPSystem.repositories.UniversityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,4 +50,15 @@ public class UniversityService {
         return null;
     }
 
+
+    public University updateUniversity(Long id, String name, String location) {
+        University universityToUpdate = getById(id);
+        if (universityToUpdate == null) {
+            return null;
+        }
+        universityToUpdate.setName(name);
+        universityToUpdate.setLocation(location);
+        universityToUpdate.setUpdatedDate(new Date());
+        return universityRepository.save(universityToUpdate);
+    }
 }
