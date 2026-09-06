@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EnrollmentService {
@@ -44,6 +45,20 @@ public class EnrollmentService {
         }
         return activeEnrollments;
     }
+
+
+
+    public Enrollment getById(Long id) {
+        Optional<Enrollment> enrollment = enrollmentRepository.findById(id);
+        if (enrollment.isPresent() && enrollment.get().isActive()) {
+            return enrollment.get();
+        }
+        return null;
+    }
+
+
+
+
 
 
 
