@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClassroomService {
@@ -44,6 +45,20 @@ public class ClassroomService {
         }
         return activeClassrooms;
     }
+
+
+
+    public Classroom getById(Long id) {
+        Optional<Classroom> classroom = classroomRepository.findById(id);
+        if (classroom.isPresent() && classroom.get().isActive()) {
+            return classroom.get();
+        }
+        return null;
+    }
+
+
+
+
 
 
 
