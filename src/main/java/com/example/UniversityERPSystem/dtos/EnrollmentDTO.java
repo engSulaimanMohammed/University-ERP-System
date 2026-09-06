@@ -1,6 +1,7 @@
 package com.example.UniversityERPSystem.dtos;
 
 
+import com.example.UniversityERPSystem.entities.Enrollment;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -40,6 +41,30 @@ public class EnrollmentDTO {
     @NotNull(message = "Course ID cannot be null")
     @Positive(message = "Course ID must be greater than zero")
     private Long courseId;
+
+
+    // Convert one Enrollment Entity to EnrollmentDTO.
+    public static EnrollmentDTO convertToDTO(Enrollment enrollment) {
+
+        return EnrollmentDTO.builder()
+                .id(enrollment.getId())
+                .enrollmentDate(enrollment.getEnrollmentDate())
+                .status(enrollment.getStatus())
+                .studentId(
+                        enrollment.getStudent() != null
+                                ? enrollment.getStudent().getId()
+                                : null
+                )
+                .courseId(
+                        enrollment.getCourse() != null
+                                ? enrollment.getCourse().getId()
+                                : null
+                )
+                .build();
+    }
+
+
+
 
 
 }
