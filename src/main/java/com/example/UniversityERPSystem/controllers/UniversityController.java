@@ -29,6 +29,12 @@ public class UniversityController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public University getById(@PathVariable Long id) {
+        return universityService.getById(id);
+    }
+
+
 
 
 }
