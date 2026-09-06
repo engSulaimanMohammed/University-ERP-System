@@ -74,6 +74,26 @@ public class ExamService {
 
 
 
+    public Boolean deleteById(Long id) {
+        Exam examToDelete = getById(id);
+        if (examToDelete == null) {
+            return false;
+        }
+        examToDelete.setActive(false);
+        examToDelete.setUpdatedDate(new Date());
+        examRepository.save(examToDelete);
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
