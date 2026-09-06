@@ -17,6 +17,13 @@ public class ProgramController {
     }
 
 
+    @PostMapping("/add")
+    public Program addProgram(@RequestBody Program program) {
+        // Call addProgram from ProgramService
+        return null;
+    }
+
+
 
 
 }
