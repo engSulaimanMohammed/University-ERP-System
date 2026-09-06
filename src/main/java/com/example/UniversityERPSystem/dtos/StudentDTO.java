@@ -12,6 +12,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -65,6 +67,11 @@ public class StudentDTO {
     }
 
 
+    // Convert List of Students to List of StudentDTOs.
+    public static List<StudentDTO> convertToDTO(List<Student> students) {
 
-
+        return students.stream()
+                .map(StudentDTO::convertToDTO)
+                .toList();
+    }
 }
