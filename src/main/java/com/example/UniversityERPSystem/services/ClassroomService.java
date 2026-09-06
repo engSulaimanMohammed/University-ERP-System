@@ -73,6 +73,21 @@ public class ClassroomService {
     }
 
 
+    public Boolean deleteById(Long id) {
+        Classroom classroomToDelete = getById(id);
+        if (classroomToDelete == null) {
+            return false;
+        }
+        classroomToDelete.setActive(false);
+        classroomToDelete.setUpdatedDate(new Date());
+        classroomRepository.save(classroomToDelete);
+        return true;
+    }
+
+
+
+
+
 
 
 
