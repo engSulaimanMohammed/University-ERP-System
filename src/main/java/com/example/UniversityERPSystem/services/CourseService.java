@@ -60,6 +60,24 @@ public class CourseService {
 
 
 
+    public Course updateCourse(Long id, String title, String courseCode,
+                               int creditHours, Program program, Instructor instructor) {
+        Course courseToUpdate = getById(id);
+        if (courseToUpdate == null) {
+            return null;
+        }
+        courseToUpdate.setTitle(title);
+        courseToUpdate.setCourseCode(courseCode);
+        courseToUpdate.setCreditHours(creditHours);
+        courseToUpdate.setProgram(program);
+        courseToUpdate.setInstructor(instructor);
+        courseToUpdate.setUpdatedDate(new Date());
+        return courseRepository.save(courseToUpdate);
+    }
+
+
+
+
 
 
 
