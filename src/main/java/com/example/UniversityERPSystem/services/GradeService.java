@@ -80,6 +80,23 @@ public class GradeService {
 
 
 
+    public Boolean deleteById(Long id) {
+        Grade gradeToDelete = getById(id);
+        if (gradeToDelete == null) {
+            return false;
+        }
+        gradeToDelete.setActive(false);
+        gradeToDelete.setUpdatedDate(new Date());
+        gradeRepository.save(gradeToDelete);
+        return true;
+    }
+
+
+
+
+
+
+
 
 
 
