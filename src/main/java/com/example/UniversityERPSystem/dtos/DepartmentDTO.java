@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -33,7 +35,6 @@ public class DepartmentDTO {
     private Long facultyId;
 
 
-    // Convert one Department Entity to DepartmentDTO.
     public static DepartmentDTO convertToDTO(Department department) {
         return DepartmentDTO.builder().id(department.getId())
                 .name(department.getName()).description(department.getDescription())
@@ -42,4 +43,9 @@ public class DepartmentDTO {
     }
 
 
+    public static List<DepartmentDTO> convertToDTO(List<Department> departments) {
+        return departments.stream()
+                .map(DepartmentDTO::convertToDTO)
+                .toList();
+    }
 }
