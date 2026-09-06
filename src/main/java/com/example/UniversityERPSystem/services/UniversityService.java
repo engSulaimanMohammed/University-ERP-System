@@ -36,15 +36,12 @@ public class UniversityService {
     }
 
 
+    // Get all active Universities.
     public List<University> getAllUniversities() {
-        List<University> universities = universityRepository.findAll();
-        List<University> activeUniversities = new ArrayList<>();
-        for (University university : universities) {
-            if (university.isActive()) {
-                activeUniversities.add(university);
-            }
-        }
-        return activeUniversities;
+        return universityRepository.findAll()
+                .stream()
+                .filter(University::isActive)
+                .toList();
     }
 
 
