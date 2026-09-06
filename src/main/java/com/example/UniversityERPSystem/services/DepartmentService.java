@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DepartmentService {
@@ -42,6 +43,18 @@ public class DepartmentService {
         }
         return activeDepartments;
     }
+
+
+
+    public Department getById(Long id) {
+        Optional<Department> department = departmentRepository.findById(id);
+        if (department.isPresent() && department.get().isActive()) {
+            return department.get();
+        }
+        return null;
+    }
+
+
 
 
 
