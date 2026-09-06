@@ -23,6 +23,12 @@ public class UniversityController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<University> getAllUniversities() {
+        return universityService.getAllUniversities();
+    }
+
+
 
 
 }
