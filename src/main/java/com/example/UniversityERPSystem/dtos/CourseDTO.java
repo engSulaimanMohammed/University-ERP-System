@@ -55,17 +55,10 @@ public class CourseDTO {
                 .title(course.getTitle())
                 .courseCode(course.getCourseCode())
                 .creditHours(course.getCreditHours())
-                .programId(
-                        course.getProgram() != null
-                                ? course.getProgram().getId()
-                                : null
-                )
-                .instructorId(
-                        course.getInstructor() != null
-                                ? course.getInstructor().getId()
-                                : null
-                )
-                .build();
+                .programId(course.getProgram() != null
+                                ? course.getProgram().getId() : null)
+                .instructorId(course.getInstructor() != null ? course.getInstructor().getId()
+                        : null).build();
     }
 
     // Convert List of Courses to List of CourseDTOs.
