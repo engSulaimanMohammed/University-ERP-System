@@ -36,6 +36,17 @@ public class GradeController {
 
 
 
+    @PutMapping("/update/{id}")
+    public Grade updateGrade(@PathVariable Long id,
+                             @RequestBody Grade grade) {
+        return null;
+    }
+
+
+
+
+
+
 
 
 
