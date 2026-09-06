@@ -1,6 +1,7 @@
 package com.example.UniversityERPSystem.services;
 
 import com.example.UniversityERPSystem.entities.University;
+import com.example.UniversityERPSystem.exceptions.ResourceNotFoundException;
 import com.example.UniversityERPSystem.repositories.UniversityRepository;
 import org.springframework.stereotype.Service;
 
@@ -45,13 +46,32 @@ public class UniversityService {
     }
 
 
+    // Get active University by ID.
     public University getById(Long id) {
-        Optional<University> university = universityRepository.findById(id);
-        if (university.isPresent() && university.get().isActive()) {
-            return university.get();
+
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    "University ID must be greater than zero"
+            );
         }
-        return null;
+
+        University university = universityRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "University not found with id: " + id
+                        )
+                );
+
+        // Soft-deleted Universities must not be returned.
+        if (!university.isActive()) {
+            throw new ResourceNotFoundException(
+                    "University not found with id: " + id
+            );
+        }
+
+        return university;
     }
+
 
 
     public University updateUniversity(Long id, String name, String location) {
