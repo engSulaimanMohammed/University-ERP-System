@@ -21,4 +21,7 @@ public class Student extends BaseClass {
 
     @OneToMany(mappedBy = "student")
     private List<Enrollment> enrollments;
+
+    @OneToMany(mappedBy = "student")
+    private List<Guardian> guardians;
 }
