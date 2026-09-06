@@ -18,6 +18,18 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
+    @PostMapping("/add")
+    public Faculty addFaculty(@RequestBody Faculty faculty) {
+        return null;
+    }
+
+
+
+
+
+
+
+
 
 
 
