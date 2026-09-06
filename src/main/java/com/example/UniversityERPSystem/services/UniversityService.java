@@ -18,12 +18,20 @@ public class UniversityService {
         this.universityRepository = universityRepository;
     }
 
+    // Add a new University.
     public University addUniversity(University university) {
         if (university == null) {
             throw new IllegalArgumentException("University cannot be null");
         }
+        // Validate University data.
+        validateUniversityData(
+                university.getName(),
+                university.getLocation()
+        );
+        // Set BaseClass fields.
         university.setActive(true);
         university.setCreatedDate(new Date());
+
         return universityRepository.save(university);
     }
 
