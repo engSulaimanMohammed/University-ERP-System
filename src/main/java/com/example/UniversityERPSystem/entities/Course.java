@@ -16,6 +16,8 @@ public class Course extends BaseClass {
     @ManyToOne
     private Program program;
 
+    @ManyToOne
+    private Instructor instructor;
 
     @OneToMany(mappedBy = "course")
     private List<Enrollment> enrollments;

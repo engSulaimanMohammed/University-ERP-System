@@ -21,4 +21,5 @@ public class Department extends BaseClass {
 
     @OneToMany(mappedBy = "department")
     private List<Instructor> instructors;
+
 }
