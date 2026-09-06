@@ -1,4 +1,8 @@
 package com.example.UniversityERPSystem.repositories;
 
-public interface CourseRepository {
+
+import com.example.UniversityERPSystem.entities.Course;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CourseRepository extends JpaRepository<Course, Long> {
 }
