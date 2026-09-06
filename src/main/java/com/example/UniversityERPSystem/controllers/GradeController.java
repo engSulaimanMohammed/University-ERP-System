@@ -17,6 +17,15 @@ public class GradeController {
     }
 
 
+    @PostMapping("/add")
+    public Grade addGrade(@RequestBody Grade grade) {
+        return null;
+    }
+
+
+
+
+
 
 
 }
