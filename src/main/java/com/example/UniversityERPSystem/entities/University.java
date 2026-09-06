@@ -1,4 +1,10 @@
 package com.example.UniversityERPSystem.entities;
 
-public class University {
+import jakarta.persistence.Entity;
+
+@Entity
+public class University extends BaseClass {
+
+    private String name;
+    private String location;
 }
