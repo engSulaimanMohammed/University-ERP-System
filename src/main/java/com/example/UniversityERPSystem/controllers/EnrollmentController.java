@@ -36,6 +36,17 @@ public class EnrollmentController {
     }
 
 
+    @PutMapping("/update/{id}")
+    public Enrollment updateEnrollment(@PathVariable Long id,
+                                       @RequestBody Enrollment enrollment) {
+        return null;
+    }
+
+
+
+
+
+
 
 
 
