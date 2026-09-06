@@ -1,6 +1,7 @@
 package com.example.UniversityERPSystem.dtos;
 
 
+import com.example.UniversityERPSystem.entities.Course;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -41,3 +42,27 @@ public class CourseDTO {
     // Instructor is optional because a course may have no assigned instructor.
     @Positive(message = "Instructor ID must be greater than zero")
     private Long instructorId;
+
+
+
+    // Convert one Course Entity to CourseDTO.
+    public static CourseDTO convertToDTO(Course course) {
+
+        return CourseDTO.builder()
+                .id(course.getId())
+                .title(course.getTitle())
+                .courseCode(course.getCourseCode())
+                .creditHours(course.getCreditHours())
+                .programId(
+                        course.getProgram() != null
+                                ? course.getProgram().getId()
+                                : null
+                )
+                .instructorId(
+                        course.getInstructor() != null
+                                ? course.getInstructor().getId()
+                                : null
+                )
+                .build();
+    }
+}
