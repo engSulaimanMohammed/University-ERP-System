@@ -30,6 +30,15 @@ public class EnrollmentController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public Enrollment getById(@PathVariable Long id) {
+        return null;
+    }
+
+
+
+
+
 
 
 
