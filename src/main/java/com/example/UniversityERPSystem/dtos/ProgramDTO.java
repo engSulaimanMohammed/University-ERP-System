@@ -55,6 +55,4 @@ public class ProgramDTO {
                 .map(ProgramDTO::convertToDTO)
                 .toList();
     }
-
-
 }
