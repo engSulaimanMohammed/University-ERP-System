@@ -6,7 +6,9 @@ import com.example.UniversityERPSystem.entities.Exam;
 import com.example.UniversityERPSystem.repositories.ExamRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ExamService {
@@ -29,6 +31,23 @@ public class ExamService {
         exam.setCourse(course);
         return examRepository.save(exam);
     }
+
+
+
+    public List<Exam> getAllExams() {
+        List<Exam> exams = examRepository.findAll();
+        List<Exam> activeExams = new ArrayList<>();
+        for (Exam exam : exams) {
+            if (exam.isActive()) {
+                activeExams.add(exam);
+            }
+        }
+        return activeExams;
+    }
+
+
+
+
 
 
 
