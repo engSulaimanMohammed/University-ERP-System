@@ -38,6 +38,17 @@ public class ProgramController {
     }
 
 
+    @PutMapping("/update/{id}")
+    public Program updateProgram(@PathVariable Long id,
+                                 @RequestBody Program program) {
+
+        // Call updateProgram from ProgramService
+        return null;
+    }
+
+
+
+
 
 
 
