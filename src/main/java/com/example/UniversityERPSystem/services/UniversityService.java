@@ -61,4 +61,16 @@ public class UniversityService {
         universityToUpdate.setUpdatedDate(new Date());
         return universityRepository.save(universityToUpdate);
     }
+
+
+    public Boolean deleteById(Long id) {
+        University universityToDelete = getById(id);
+        if (universityToDelete == null) {
+            return false;
+        }
+        universityToDelete.setActive(false);
+        universityToDelete.setUpdatedDate(new Date());
+        universityRepository.save(universityToDelete);
+        return true;
+    }
 }
