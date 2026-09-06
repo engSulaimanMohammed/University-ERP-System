@@ -15,4 +15,12 @@ public class ClassroomController {
     public ClassroomController(ClassroomService classroomService) {
         this.classroomService = classroomService;
     }
+
+
+    @PostMapping("/add")
+    public Classroom addClassroom(@RequestBody Classroom classroom) {
+        return null;
+    }
+
+
 }
