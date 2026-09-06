@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -56,5 +57,16 @@ public class ExamDTO {
                                 : null
                 )
                 .build();
+    }
+
+
+
+
+    // Convert List of Exams to List of ExamDTOs.
+    public static List<ExamDTO> convertToDTO(List<Exam> exams) {
+
+        return exams.stream()
+                .map(ExamDTO::convertToDTO)
+                .toList();
     }
 }
