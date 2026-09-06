@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GradeService {
@@ -48,6 +49,21 @@ public class GradeService {
         }
         return activeGrades;
     }
+
+
+
+
+    public Grade getById(Long id) {
+        Optional<Grade> grade = gradeRepository.findById(id);
+        if (grade.isPresent() && grade.get().isActive()) {
+            return grade.get();
+        }
+        return null;
+    }
+
+
+
+
 
 
 
