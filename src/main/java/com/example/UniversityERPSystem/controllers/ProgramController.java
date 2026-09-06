@@ -31,6 +31,16 @@ public class ProgramController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public Program getById(@PathVariable Long id) {
+        // Call getById from ProgramService
+        return null;
+    }
+
+
+
+
+
 
 
 
