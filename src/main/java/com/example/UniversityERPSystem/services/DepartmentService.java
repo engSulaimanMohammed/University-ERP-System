@@ -79,6 +79,17 @@ public class DepartmentService {
 
 
 
+    // Get all active Departments.
+    public List<Department> getAllDepartments() {
+
+        return departmentRepository.findAll()
+                .stream()
+                .filter(Department::isActive)
+                .toList();
+    }
+
+
+
 
 
 
