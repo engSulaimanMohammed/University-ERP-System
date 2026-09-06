@@ -1,6 +1,7 @@
 package com.example.UniversityERPSystem.controllers;
 
 import com.example.UniversityERPSystem.dtos.CourseDTO;
+import com.example.UniversityERPSystem.dtos.DropEnrollmentDTO;
 import com.example.UniversityERPSystem.dtos.EnrollmentDTO;
 import com.example.UniversityERPSystem.dtos.ProgramEnrollmentStatsDTO;
 import com.example.UniversityERPSystem.dtos.StudentDTO;
@@ -24,12 +25,11 @@ public class EnrollmentController {
     }
 
 
-    // Add a new Enrollment.
+    // Enroll a Student in a Course.
     @PostMapping("/add")
     public EnrollmentDTO addEnrollment(
             @Valid @RequestBody EnrollmentDTO enrollmentDTO) {
 
-        // Create Enrollment Entity from DTO.
         Enrollment enrollment = new Enrollment();
 
         enrollment.setEnrollmentDate(
@@ -40,7 +40,6 @@ public class EnrollmentController {
                 enrollmentDTO.getStatus()
         );
 
-        // Save Enrollment using Student ID and Course ID.
         Enrollment savedEnrollment =
                 enrollmentService.addEnrollment(
                         enrollment,
@@ -48,7 +47,6 @@ public class EnrollmentController {
                         enrollmentDTO.getCourseId()
                 );
 
-        // Return DTO instead of raw Entity.
         return EnrollmentDTO.convertToDTO(savedEnrollment);
     }
 
@@ -68,10 +66,9 @@ public class EnrollmentController {
     public EnrollmentDTO getById(
             @PathVariable Long id) {
 
-        Enrollment enrollment =
-                enrollmentService.getById(id);
-
-        return EnrollmentDTO.convertToDTO(enrollment);
+        return EnrollmentDTO.convertToDTO(
+                enrollmentService.getById(id)
+        );
     }
 
 
@@ -97,12 +94,14 @@ public class EnrollmentController {
 
 
     // Drop an Enrollment.
-    @PutMapping("/drop/{id}")
+    @PutMapping("/drop")
     public EnrollmentDTO dropEnrollment(
-            @PathVariable Long id) {
+            @Valid @RequestBody DropEnrollmentDTO dropEnrollmentDTO) {
 
         Enrollment droppedEnrollment =
-                enrollmentService.dropEnrollment(id);
+                enrollmentService.dropEnrollment(
+                        dropEnrollmentDTO.getEnrollmentId()
+                );
 
         return EnrollmentDTO.convertToDTO(
                 droppedEnrollment
@@ -110,52 +109,47 @@ public class EnrollmentController {
     }
 
 
-    // Get all Courses a Student is enrolled in.
+    // Get Courses a Student is enrolled in.
     @GetMapping("/coursesByStudent/{studentId}")
     public List<CourseDTO> getCoursesByStudent(
             @PathVariable Long studentId) {
 
         return CourseDTO.convertToDTO(
-                enrollmentService
-                        .getCoursesByStudent(studentId)
+                enrollmentService.getCoursesByStudent(studentId)
         );
     }
 
 
-    // Get all Students enrolled in a Course.
+    // Get Students enrolled in a Course.
     @GetMapping("/studentsByCourse/{courseId}")
     public List<StudentDTO> getStudentsByCourse(
             @PathVariable Long courseId) {
 
         return StudentDTO.convertToDTO(
-                enrollmentService
-                        .getStudentsByCourse(courseId)
+                enrollmentService.getStudentsByCourse(courseId)
         );
     }
 
 
-    // Get active Enrollments by Status.
+    // Get Enrollments by Status.
     @GetMapping("/byStatus/{status}")
     public List<EnrollmentDTO> getEnrollmentsByStatus(
             @PathVariable String status) {
 
         return EnrollmentDTO.convertToDTO(
-                enrollmentService
-                        .getEnrollmentsByStatus(status)
+                enrollmentService.getEnrollmentsByStatus(status)
         );
     }
 
 
-    // Get total actively enrolled Students in a Program.
+    // Get Program Enrollment statistics.
     @GetMapping("/programStats/{programId}")
     public ProgramEnrollmentStatsDTO getProgramEnrollmentStats(
             @PathVariable Long programId) {
 
         long totalEnrolledStudents =
                 enrollmentService
-                        .getTotalEnrolledStudentsByProgram(
-                                programId
-                        );
+                        .getTotalEnrolledStudentsByProgram(programId);
 
         return ProgramEnrollmentStatsDTO.builder()
                 .programId(programId)
@@ -164,21 +158,18 @@ public class EnrollmentController {
     }
 
 
-    // Soft delete Enrollment by ID.
+    // Soft delete Enrollment.
     @DeleteMapping("/delete/{id}")
     public EnrollmentDTO deleteById(
             @PathVariable Long id) {
 
-        // Get Enrollment before Soft Delete.
         EnrollmentDTO enrollmentDTO =
                 EnrollmentDTO.convertToDTO(
                         enrollmentService.getById(id)
                 );
 
-        // Perform Soft Delete.
         enrollmentService.deleteById(id);
 
-        // Return DTO.
         return enrollmentDTO;
     }
 }
