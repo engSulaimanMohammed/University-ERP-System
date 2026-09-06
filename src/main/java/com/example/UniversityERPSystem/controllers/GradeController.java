@@ -19,19 +19,23 @@ public class GradeController {
 
     @PostMapping("/add")
     public Grade addGrade(@RequestBody Grade grade) {
-        return null;
+        return gradeService.addGrade(
+                grade,
+                grade.getEnrollment(),
+                grade.getExam()
+        );
     }
 
 
     @GetMapping("/getAll")
     public List<Grade> getAllGrades() {
-        return null;
+        return gradeService.getAllGrades();
     }
 
 
     @GetMapping("/getById/{id}")
     public Grade getById(@PathVariable Long id) {
-        return null;
+        return gradeService.getById(id);
     }
 
 
@@ -39,12 +43,17 @@ public class GradeController {
     @PutMapping("/update/{id}")
     public Grade updateGrade(@PathVariable Long id,
                              @RequestBody Grade grade) {
-        return null;
-    }
+        return gradeService.updateGrade(
+                id,
+                grade.getScore(),
+                grade.getLetterGrade(),
+                grade.getEnrollment(),
+                grade.getExam()
+        );    }
 
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
-        return null;
+        return gradeService.deleteById(id);
     }
 }
