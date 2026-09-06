@@ -42,20 +42,8 @@ public class StudentController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @DeleteMapping("/delete/{id}")
+    public Boolean deleteById(@PathVariable Long id) {
+        return null;
+    }
 }
