@@ -28,6 +28,18 @@ public class InstructorController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public Instructor getById(@PathVariable Long id) {
+        return null;
+    }
+
+
+
+
+
+
+
+
 
 
 
