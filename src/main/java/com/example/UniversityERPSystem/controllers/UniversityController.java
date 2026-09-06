@@ -35,6 +35,20 @@ public class UniversityController {
     }
 
 
+    @PutMapping("/update/{id}")
+    public University updateUniversity(@PathVariable Long id,
+                                       @RequestBody University university) {
+        return universityService.updateUniversity(
+                id,
+                university.getName(),
+                university.getLocation()
+        );
+    }
+
+
+
+
+
 
 
 }
