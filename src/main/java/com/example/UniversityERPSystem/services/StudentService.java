@@ -76,7 +76,6 @@ public class StudentService {
 
 
 
-
     public Boolean deleteById(Long id) {
         Student studentToDelete = getById(id);
         if (studentToDelete == null) {
@@ -87,21 +86,4 @@ public class StudentService {
         studentRepository.save(studentToDelete);
         return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
