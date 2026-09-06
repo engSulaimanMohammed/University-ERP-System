@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -44,6 +46,14 @@ public class ProgramDTO {
                 .durationYears(program.getDurationYears()).departmentId(
                         program.getDepartment() != null ? program.getDepartment().getId()
                                 : null).build();
+    }
+
+
+    // Convert List of Programs to List of ProgramDTOs.
+    public static List<ProgramDTO> convertToDTO(List<Program> programs) {
+        return programs.stream()
+                .map(ProgramDTO::convertToDTO)
+                .toList();
     }
 
 
