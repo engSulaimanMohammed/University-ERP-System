@@ -1,84 +1,193 @@
 package com.example.UniversityERPSystem.services;
+
 import com.example.UniversityERPSystem.entities.Department;
 import com.example.UniversityERPSystem.entities.Program;
+import com.example.UniversityERPSystem.exceptions.ResourceNotFoundException;
 import com.example.UniversityERPSystem.repositories.ProgramRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
 
 @Service
 public class ProgramService {
 
     private final ProgramRepository programRepository;
+    private final DepartmentService departmentService;
 
-    public ProgramService(ProgramRepository programRepository) {
+
+    // Constructor Injection.
+    public ProgramService(ProgramRepository programRepository,
+                          DepartmentService departmentService) {
+
         this.programRepository = programRepository;
+        this.departmentService = departmentService;
     }
 
 
+    // Validate Program fields.
+    private void validateProgramData(String name,
+                                     String degreeLevel,
+                                     int durationYears) {
 
-    public Program addProgram(Program program, Department department) {
-        if (program == null) {
-            throw new IllegalArgumentException("Program cannot be null");
+        // Validate Program name.
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Program name cannot be blank"
+            );
         }
+
+        if (name.length() > 255) {
+            throw new IllegalArgumentException(
+                    "Program name cannot exceed 255 characters"
+            );
+        }
+
+
+        // Validate Degree Level.
+        if (degreeLevel == null || degreeLevel.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Degree level cannot be blank"
+            );
+        }
+
+        if (degreeLevel.length() > 255) {
+            throw new IllegalArgumentException(
+                    "Degree level cannot exceed 255 characters"
+            );
+        }
+
+
+        // Validate Duration Years.
+        if (durationYears <= 0) {
+            throw new IllegalArgumentException(
+                    "Duration years must be greater than zero"
+            );
+        }
+    }
+
+
+    // Add a new Program.
+    public Program addProgram(Program program, Long departmentId) {
+
+        if (program == null) {
+            throw new IllegalArgumentException(
+                    "Program cannot be null"
+            );
+        }
+
+        // Validate Program data.
+        validateProgramData(
+                program.getName(),
+                program.getDegreeLevel(),
+                program.getDurationYears()
+        );
+
+        // Get active Department.
+        Department department = departmentService.getById(departmentId);
+
+        // Set relationship.
+        program.setDepartment(department);
+
+        // Set BaseClass fields.
         program.setActive(true);
         program.setCreatedDate(new Date());
-        program.setDepartment(department);
+
+        // Save Program.
         return programRepository.save(program);
     }
 
 
-
+    // Get all active Programs.
     public List<Program> getAllPrograms() {
-        List<Program> programs = programRepository.findAll();
-        List<Program> activePrograms = new ArrayList<>();
-        for (Program program : programs) {
-            if (program.isActive()) {
-                activePrograms.add(program);
-            }
-        }
-        return activePrograms;
+
+        return programRepository.findAll()
+                .stream()
+                .filter(Program::isActive)
+                .toList();
     }
 
 
+    // Get active Program by ID.
     public Program getById(Long id) {
-        Optional<Program> program = programRepository.findById(id);
-        if (program.isPresent() && program.get().isActive()) {
-            return program.get();
+
+        // Validate ID.
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    "Program ID must be greater than zero"
+            );
         }
-        return null;
+
+        // Find Program.
+        Program program = programRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Program not found with id: " + id
+                        )
+                );
+
+        // Do not return soft-deleted Program.
+        if (!program.isActive()) {
+            throw new ResourceNotFoundException(
+                    "Program not found with id: " + id
+            );
+        }
+
+        return program;
     }
 
 
+    // Update an existing Program.
+    public Program updateProgram(Long id,
+                                 String name,
+                                 String degreeLevel,
+                                 int durationYears,
+                                 Long departmentId) {
 
+        // Validate new Program data.
+        validateProgramData(
+                name,
+                degreeLevel,
+                durationYears
+        );
 
-    public Program updateProgram(Long id, String name, String degreeLevel,
-                                 int durationYears, Department department) {
+        // Get active Program.
         Program programToUpdate = getById(id);
-        if (programToUpdate == null) {
-            return null;
-        }
+
+        // Get active Department.
+        Department department = departmentService.getById(departmentId);
+
+        // Update Program fields.
         programToUpdate.setName(name);
         programToUpdate.setDegreeLevel(degreeLevel);
         programToUpdate.setDurationYears(durationYears);
+
+        // Update relationship.
         programToUpdate.setDepartment(department);
+
+        // Update modification date.
         programToUpdate.setUpdatedDate(new Date());
+
+        // Save updated Program.
         return programRepository.save(programToUpdate);
     }
 
 
+    // Soft delete Program by ID.
     public Boolean deleteById(Long id) {
+
+        // Get active Program.
         Program programToDelete = getById(id);
-        if (programToDelete == null) {
-            return false;
-        }
+
+        // Soft Delete.
         programToDelete.setActive(false);
+
+        // Update modification date.
         programToDelete.setUpdatedDate(new Date());
+
+        // Save changes.
         programRepository.save(programToDelete);
+
         return true;
     }
 }
