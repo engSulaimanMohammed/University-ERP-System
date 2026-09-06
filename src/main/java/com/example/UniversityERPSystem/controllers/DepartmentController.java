@@ -38,6 +38,17 @@ public class DepartmentController {
     }
 
 
+    @PutMapping("/update/{id}")
+    public Department updateDepartment(@PathVariable Long id,
+                                       @RequestBody Department department) {
+        // Call updateDepartment from DepartmentService
+        return null;
+    }
+
+
+
+
+
 
 
 
