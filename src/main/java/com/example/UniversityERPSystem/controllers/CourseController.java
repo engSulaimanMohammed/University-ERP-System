@@ -21,34 +21,44 @@ public class CourseController {
     public Course addCourse(@RequestBody Course course) {
         // Call addCourse from CourseService
         // Course also needs Program and Instructor
-        return null;
+        return courseService.addCourse(
+                course,
+                course.getProgram(),
+                course.getInstructor()
+        );
     }
 
 
     @GetMapping("/getAll")
     public List<Course> getAllCourses() {
         // Call getAllCourses from CourseService
-        return null;
+        return courseService.getAllCourses();
     }
 
 
     @GetMapping("/getById/{id}")
     public Course getById(@PathVariable Long id) {
         // Call getById from CourseService
-        return null;
+        return courseService.getById(id);
     }
 
 
     @PutMapping("/update/{id}")
     public Course updateCourse(@PathVariable Long id,
                                @RequestBody Course course) {
-        return null;
-    }
+        return courseService.updateCourse(
+                id,
+                course.getTitle(),
+                course.getCourseCode(),
+                course.getCreditHours(),
+                course.getProgram(),
+                course.getInstructor()
+        );    }
 
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
         // Call deleteById from CourseService
-        return null;
+        return courseService.deleteById(id);
     }
 }
