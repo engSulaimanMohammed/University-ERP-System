@@ -53,6 +53,21 @@ public class FacultyService {
     }
 
 
+    public Faculty updateFaculty(Long id, String name, String description, University university) {
+        Faculty facultyToUpdate = getById(id);
+        if (facultyToUpdate == null) {
+            return null;
+        }
+        facultyToUpdate.setName(name);
+        facultyToUpdate.setDescription(description);
+        facultyToUpdate.setUniversity(university);
+        facultyToUpdate.setUpdatedDate(new Date());
+        return facultyRepository.save(facultyToUpdate);
+    }
+
+
+
+
 
 
 
