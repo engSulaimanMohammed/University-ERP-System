@@ -5,7 +5,9 @@ import com.example.UniversityERPSystem.entities.University;
 import com.example.UniversityERPSystem.repositories.FacultyRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class FacultyService {
@@ -26,6 +28,24 @@ public class FacultyService {
         faculty.setUniversity(university);
         return facultyRepository.save(faculty);
     }
+
+
+    public List<Faculty> getAllFaculties() {
+        List<Faculty> faculties = facultyRepository.findAll();
+        List<Faculty> activeFaculties = new ArrayList<>();
+        for (Faculty faculty : faculties) {
+            if (faculty.isActive()) {
+                activeFaculties.add(faculty);
+            }
+        }
+        return activeFaculties;
+    }
+
+
+
+
+
+
 
 
 
