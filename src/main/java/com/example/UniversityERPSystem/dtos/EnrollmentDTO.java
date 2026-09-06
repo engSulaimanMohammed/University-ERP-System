@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -64,7 +65,10 @@ public class EnrollmentDTO {
     }
 
 
-
-
-
+    // Convert List of Enrollments to List of EnrollmentDTOs.
+    public static List<EnrollmentDTO> convertToDTO(List<Enrollment> enrollments) {
+        return enrollments.stream()
+                .map(EnrollmentDTO::convertToDTO)
+                .toList();
+    }
 }
