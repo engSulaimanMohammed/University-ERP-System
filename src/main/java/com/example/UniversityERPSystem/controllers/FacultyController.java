@@ -38,6 +38,18 @@ public class FacultyController {
     }
 
 
+    @PutMapping("/update/{id}")
+    public Faculty updateFaculty(@PathVariable Long id,
+                                 @RequestBody Faculty faculty) {
+        // Call updateFaculty from FacultyService
+        return null;
+    }
+
+
+
+
+
+
 
 
 
