@@ -17,5 +17,14 @@ public class ExamController {
     }
 
 
+    @PostMapping("/add")
+    public Exam addExam(@RequestBody Exam exam) {
+        return null;
+    }
+
+
+
+
+
 
 }
