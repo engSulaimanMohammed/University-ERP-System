@@ -140,6 +140,20 @@ public class DepartmentService {
     }
 
 
+    // Soft delete Department by ID.
+    public Boolean deleteById(Long id) {
+
+        Department departmentToDelete = getById(id);
+
+        departmentToDelete.setActive(false);
+        departmentToDelete.setUpdatedDate(new Date());
+
+        departmentRepository.save(departmentToDelete);
+
+        return true;
+    }
+
+
 
 
 
