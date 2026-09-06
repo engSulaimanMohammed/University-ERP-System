@@ -24,6 +24,15 @@ public class EnrollmentController {
 
 
 
+    @GetMapping("/getAll")
+    public List<Enrollment> getAllEnrollments() {
+        return null;
+    }
+
+
+
+
+
 
 
 
