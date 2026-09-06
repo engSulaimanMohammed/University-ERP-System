@@ -17,4 +17,17 @@ public class DepartmentController {
     }
 
 
+    @PostMapping("/add")
+    public Department addDepartment(@RequestBody Department department) {
+        // Call addDepartment from DepartmentService
+        return null;
+    }
+
+
+
+
+
+
+
+
 }
