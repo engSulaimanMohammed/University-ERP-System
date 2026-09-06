@@ -70,18 +70,14 @@ public class DepartmentService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public Boolean deleteById(Long id) {
+        Department departmentToDelete = getById(id);
+        if (departmentToDelete == null) {
+            return false;
+        }
+        departmentToDelete.setActive(false);
+        departmentToDelete.setUpdatedDate(new Date());
+        departmentRepository.save(departmentToDelete);
+        return true;
+    }
 }
