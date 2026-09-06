@@ -58,6 +58,31 @@ public class ExamService {
 
 
 
+    public Exam updateExam(Long id, String title, Date examDate,
+                           double totalMarks, Course course) {
+        Exam examToUpdate = getById(id);
+        if (examToUpdate == null) {
+            return null;
+        }
+        examToUpdate.setTitle(title);
+        examToUpdate.setExamDate(examDate);
+        examToUpdate.setTotalMarks(totalMarks);
+        examToUpdate.setCourse(course);
+        examToUpdate.setUpdatedDate(new Date());
+        return examRepository.save(examToUpdate);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
