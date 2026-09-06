@@ -7,7 +7,9 @@ import com.example.UniversityERPSystem.entities.Department;
 import com.example.UniversityERPSystem.repositories.ClassroomRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ClassroomService {
@@ -29,6 +31,23 @@ public class ClassroomService {
         classroom.setDepartment(department);
         return classroomRepository.save(classroom);
     }
+
+
+
+    public List<Classroom> getAllClassrooms() {
+        List<Classroom> classrooms = classroomRepository.findAll();
+        List<Classroom> activeClassrooms = new ArrayList<>();
+        for (Classroom classroom : classrooms) {
+            if (classroom.isActive()) {
+                activeClassrooms.add(classroom);
+            }
+        }
+        return activeClassrooms;
+    }
+
+
+
+
 
 
 
