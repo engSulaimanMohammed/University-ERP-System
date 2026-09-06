@@ -77,6 +77,21 @@ public class EnrollmentService {
 
 
 
+    public Boolean deleteById(Long id) {
+        Enrollment enrollmentToDelete = getById(id);
+        if (enrollmentToDelete == null) {
+            return false;
+        }
+        enrollmentToDelete.setActive(false);
+        enrollmentToDelete.setUpdatedDate(new Date());
+        enrollmentRepository.save(enrollmentToDelete);
+        return true;
+    }
+
+
+
+
+
 
 
 
