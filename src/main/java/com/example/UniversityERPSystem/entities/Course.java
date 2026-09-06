@@ -19,4 +19,5 @@ public class Course extends BaseClass {
 
     @OneToMany(mappedBy = "course")
     private List<Enrollment> enrollments;
+
 }
