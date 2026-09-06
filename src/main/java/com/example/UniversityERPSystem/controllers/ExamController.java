@@ -24,6 +24,16 @@ public class ExamController {
 
 
 
+    @GetMapping("/getAll")
+    public List<Exam> getAllExams() {
+        return null;
+    }
+
+
+
+
+
+
 
 
 
