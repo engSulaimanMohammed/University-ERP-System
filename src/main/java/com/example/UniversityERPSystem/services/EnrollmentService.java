@@ -59,6 +59,28 @@ public class EnrollmentService {
 
 
 
+    public Enrollment updateEnrollment(Long id, Date enrollmentDate,
+                                       String status, Student student, Course course) {
+        Enrollment enrollmentToUpdate = getById(id);
+        if (enrollmentToUpdate == null) {
+            return null;
+        }
+        enrollmentToUpdate.setEnrollmentDate(enrollmentDate);
+        enrollmentToUpdate.setStatus(status);
+        enrollmentToUpdate.setStudent(student);
+        enrollmentToUpdate.setCourse(course);
+        enrollmentToUpdate.setUpdatedDate(new Date());
+        return enrollmentRepository.save(enrollmentToUpdate);
+    }
+
+
+
+
+
+
+
+
+
 
 
 
