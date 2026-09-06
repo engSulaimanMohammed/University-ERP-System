@@ -43,16 +43,8 @@ public class GradeController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    @DeleteMapping("/delete/{id}")
+    public Boolean deleteById(@PathVariable Long id) {
+        return null;
+    }
 }
