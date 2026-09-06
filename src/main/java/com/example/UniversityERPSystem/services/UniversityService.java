@@ -40,13 +40,10 @@ public class UniversityService {
 
 
     public University getById(Long id) {
-
         Optional<University> university = universityRepository.findById(id);
-
         if (university.isPresent() && university.get().isActive()) {
             return university.get();
         }
-
         return null;
     }
 
