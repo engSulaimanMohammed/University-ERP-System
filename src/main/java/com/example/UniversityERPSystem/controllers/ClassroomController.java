@@ -23,4 +23,14 @@ public class ClassroomController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<Classroom> getAllClassrooms() {
+        return null;
+    }
+
+
+
+
+
+
 }
