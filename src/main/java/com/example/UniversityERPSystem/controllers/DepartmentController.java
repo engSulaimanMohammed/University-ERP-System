@@ -20,21 +20,24 @@ public class DepartmentController {
     @PostMapping("/add")
     public Department addDepartment(@RequestBody Department department) {
         // Call addDepartment from DepartmentService
-        return null;
+        return departmentService.addDepartment(
+                department,
+                department.getFaculty()
+        );
     }
 
 
     @GetMapping("/getAll")
     public List<Department> getAllDepartments() {
         // Call getAllDepartments from DepartmentService
-        return null;
+        return departmentService.getAllDepartments();
     }
 
 
     @GetMapping("/getById/{id}")
     public Department getById(@PathVariable Long id) {
         // Call getById from DepartmentService
-        return null;
+        return departmentService.getById(id);
     }
 
 
@@ -42,13 +45,17 @@ public class DepartmentController {
     public Department updateDepartment(@PathVariable Long id,
                                        @RequestBody Department department) {
         // Call updateDepartment from DepartmentService
-        return null;
-    }
+        return departmentService.updateDepartment(
+                id,
+                department.getName(),
+                department.getDescription(),
+                department.getFaculty()
+        );    }
 
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
         // Call deleteById from DepartmentService
-        return null;
+        return departmentService.deleteById(id);
     }
 }
