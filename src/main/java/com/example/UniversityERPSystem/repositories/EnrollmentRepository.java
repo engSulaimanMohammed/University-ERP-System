@@ -1,4 +1,7 @@
 package com.example.UniversityERPSystem.repositories;
 
-public interface EnrollmentRepository {
+import com.example.UniversityERPSystem.entities.Enrollment;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 }
