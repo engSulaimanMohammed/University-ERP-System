@@ -84,6 +84,42 @@ public class FacultyService {
 
 
 
+    // Get active Faculty by ID.
+    public Faculty getById(Long id) {
+
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    "Faculty ID must be greater than zero"
+            );
+        }
+
+        Faculty faculty = facultyRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Faculty not found with id: " + id
+                        )
+                );
+
+        // Soft-deleted Faculties must not be returned.
+        if (!faculty.isActive()) {
+            throw new ResourceNotFoundException(
+                    "Faculty not found with id: " + id
+            );
+        }
+
+        return faculty;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
