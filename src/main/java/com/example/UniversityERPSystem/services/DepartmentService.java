@@ -89,6 +89,37 @@ public class DepartmentService {
     }
 
 
+    // Get active Department by ID.
+    public Department getById(Long id) {
+
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    "Department ID must be greater than zero"
+            );
+        }
+
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Department not found with id: " + id
+                        )
+                );
+
+        // Soft-deleted Departments must not be returned.
+        if (!department.isActive()) {
+            throw new ResourceNotFoundException(
+                    "Department not found with id: " + id
+            );
+        }
+
+        return department;
+    }
+
+
+
+
+
+
 
 
 
