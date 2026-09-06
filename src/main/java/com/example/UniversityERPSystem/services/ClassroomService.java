@@ -58,6 +58,25 @@ public class ClassroomService {
 
 
 
+    public Classroom updateClassroom(Long id, String roomNumber, int floor,
+                                     int capacity, Department department) {
+        Classroom classroomToUpdate = getById(id);
+        if (classroomToUpdate == null) {
+            return null;
+        }
+        classroomToUpdate.setRoomNumber(roomNumber);
+        classroomToUpdate.setFloor(floor);
+        classroomToUpdate.setCapacity(capacity);
+        classroomToUpdate.setDepartment(department);
+        classroomToUpdate.setUpdatedDate(new Date());
+        return classroomRepository.save(classroomToUpdate);
+    }
+
+
+
+
+
+
 
 
 
