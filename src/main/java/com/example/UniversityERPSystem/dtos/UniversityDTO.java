@@ -1,6 +1,7 @@
 package com.example.UniversityERPSystem.dtos;
 
 import com.example.UniversityERPSystem.entities.University;
+import com.example.UniversityERPSystem.entities.University;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
