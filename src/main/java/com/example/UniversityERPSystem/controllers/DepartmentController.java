@@ -24,6 +24,15 @@ public class DepartmentController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<Department> getAllDepartments() {
+        // Call getAllDepartments from DepartmentService
+        return null;
+    }
+
+
+
+
 
 
 
