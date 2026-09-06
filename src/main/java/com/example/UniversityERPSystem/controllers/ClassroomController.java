@@ -19,19 +19,22 @@ public class ClassroomController {
 
     @PostMapping("/add")
     public Classroom addClassroom(@RequestBody Classroom classroom) {
-        return null;
+        return classroomService.addClassroom(
+                classroom,
+                classroom.getDepartment()
+        );
     }
 
 
     @GetMapping("/getAll")
     public List<Classroom> getAllClassrooms() {
-        return null;
+        return classroomService.getAllClassrooms();
     }
 
 
     @GetMapping("/getById/{id}")
     public Classroom getById(@PathVariable Long id) {
-        return null;
+        return classroomService.getById(id);
     }
 
 
@@ -39,11 +42,17 @@ public class ClassroomController {
     @PutMapping("/update/{id}")
     public Classroom updateClassroom(@PathVariable Long id,
                                      @RequestBody Classroom classroom) {
-        return null;
+        return classroomService.updateClassroom(
+                id,
+                classroom.getRoomNumber(),
+                classroom.getFloor(),
+                classroom.getCapacity(),
+                classroom.getDepartment()
+        );
     }
 
     @DeleteMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
-        return null;
+        return classroomService.deleteById(id);
     }
 }
