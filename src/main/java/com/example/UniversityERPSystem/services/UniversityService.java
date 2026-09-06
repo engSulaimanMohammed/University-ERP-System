@@ -23,6 +23,7 @@ public class UniversityService {
             throw new IllegalArgumentException("University cannot be null");
         }
         university.setActive(true);
+        university.setCreatedDate(new Date());
         return universityRepository.save(university);
     }
 
