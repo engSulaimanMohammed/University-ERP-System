@@ -29,6 +29,14 @@ public class GuardianController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public Guardian getById(@PathVariable Long id) {
+        return null;
+    }
+
+
+
+
 
 
 
