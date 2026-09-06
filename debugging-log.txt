@@ -1,0 +1,64 @@
+University ERP System - Debugging Log
+
+--------------------------------------------------
+Issue 1: Validation dependency was missing
+--------------------------------------------------
+HTTP Status:
+N/A - Compile/IDE issue
+
+Cause:
+Jakarta Validation annotations could not be resolved because
+Spring Boot Starter Validation was not included.
+
+Fix:
+Added spring-boot-starter-validation dependency to pom.xml.
+
+Status:
+Fixed
+
+
+--------------------------------------------------
+Issue 2: Database credentials stored in application.properties
+--------------------------------------------------
+HTTP Status:
+N/A - Configuration/Security issue
+
+Cause:
+Database username/password were hard-coded in a Git-tracked file.
+
+Fix:
+Replaced database credentials with environment variables.
+
+Status:
+Fixed
+
+
+--------------------------------------------------
+Issue 3: Course capacity requirement
+--------------------------------------------------
+HTTP Status:
+Expected 400 when a Course is full.
+
+Cause:
+The project requires enrollment to be rejected when the
+Classroom capacity is reached.
+
+However, the provided entity relationship table does not define
+a relationship between Course and Classroom.
+
+Course belongs to Program and Instructor.
+Classroom belongs to Department.
+
+Fix / Decision:
+No Course-Classroom relationship was added because Phase 1
+requires relationships to match the provided entity table exactly.
+
+Status:
+Requirement/schema mismatch - requires instructor clarification.
+
+
+--------------------------------------------------
+Final Application Startup Test
+--------------------------------------------------
+Result:
+Application started successfully without startup errors.
