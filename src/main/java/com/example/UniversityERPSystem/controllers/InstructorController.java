@@ -22,6 +22,19 @@ public class InstructorController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<Instructor> getAllInstructors() {
+        return null;
+    }
+
+
+
+
+
+
+
+
+
 
 
 
