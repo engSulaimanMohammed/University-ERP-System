@@ -1,4 +1,16 @@
 package com.example.UniversityERPSystem.exceptions;
 
-public record ErrorResponse() {
+import java.time.LocalDateTime;
+
+public record ErrorResponse(
+
+        int status,
+
+        String error,
+
+        String message,
+
+        LocalDateTime timestamp
+
+) {
 }
