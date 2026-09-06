@@ -52,4 +52,34 @@ public class DepartmentService {
 
 
 
+    // Add a new Department.
+    public Department addDepartment(Department department, Long facultyId) {
+
+        if (department == null) {
+            throw new IllegalArgumentException(
+                    "Department cannot be null"
+            );
+        }
+
+        // Validate Department fields.
+        validateDepartmentData(
+                department.getName(),
+                department.getDescription()
+        );
+
+        // Get active Faculty.
+        Faculty faculty = facultyService.getById(facultyId);
+
+        department.setFaculty(faculty);
+        department.setActive(true);
+        department.setCreatedDate(new Date());
+
+        return departmentRepository.save(department);
+    }
+
+
+
+
+
+
 }
