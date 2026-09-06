@@ -23,6 +23,15 @@ public class StudentController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<Student> getAllStudents() {
+        return null;
+    }
+
+
+
+
+
 
 
 
