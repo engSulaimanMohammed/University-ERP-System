@@ -31,6 +31,13 @@ public class FacultyController {
     }
 
 
+    @GetMapping("/getById/{id}")
+    public Faculty getById(@PathVariable Long id) {
+        // Call getById.
+        return null;
+    }
+
+
 
 
 
