@@ -12,6 +12,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -58,6 +60,15 @@ public class GradeDTO {
                                 : null
                 )
                 .build();
+    }
+
+
+    // Convert List of Grades to List of GradeDTOs.
+    public static List<GradeDTO> convertToDTO(List<Grade> grades) {
+
+        return grades.stream()
+                .map(GradeDTO::convertToDTO)
+                .toList();
     }
 
 
