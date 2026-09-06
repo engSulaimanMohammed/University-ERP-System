@@ -64,6 +64,27 @@ public class GradeService {
 
 
 
+    public Grade updateGrade(Long id, double score,
+                             String letterGrade, Enrollment enrollment, Exam exam) {
+        Grade gradeToUpdate = getById(id);
+        if (gradeToUpdate == null) {
+            return null;
+        }
+        gradeToUpdate.setScore(score);
+        gradeToUpdate.setLetterGrade(letterGrade);
+        gradeToUpdate.setEnrollment(enrollment);
+        gradeToUpdate.setExam(exam);
+        gradeToUpdate.setUpdatedDate(new Date());
+        return gradeRepository.save(gradeToUpdate);
+    }
+
+
+
+
+
+
+
+
 
 
 
