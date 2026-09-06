@@ -7,7 +7,7 @@ import jakarta.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
-public class Enrollment {
+public class Enrollment extends BaseClass  {
 
     private Date enrollmentDate;
     private String status;
