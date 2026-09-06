@@ -46,17 +46,9 @@ public class FacultyController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @DeleteMapping("/delete/{id}")
+    public Boolean deleteById(@PathVariable Long id) {
+        // Call deleteById from FacultyService
+        return null;
+    }
 }
