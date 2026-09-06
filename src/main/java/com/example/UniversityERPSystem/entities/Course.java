@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Course {
+public class Course extends BaseClass {
 
     private String title;
     private String courseCode;
