@@ -1,83 +1,55 @@
 package com.example.UniversityERPSystem.services;
 
-
 import com.example.UniversityERPSystem.entities.Department;
 import com.example.UniversityERPSystem.entities.Faculty;
+import com.example.UniversityERPSystem.exceptions.ResourceNotFoundException;
 import com.example.UniversityERPSystem.repositories.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
+    private final FacultyService facultyService;
 
-    public DepartmentService(DepartmentRepository departmentRepository) {
+    public DepartmentService(DepartmentRepository departmentRepository,
+                             FacultyService facultyService) {
         this.departmentRepository = departmentRepository;
+        this.facultyService = facultyService;
     }
 
 
-    public Department addDepartment(Department department, Faculty faculty) {
-        if (department == null) {
-            throw new IllegalArgumentException("Department cannot be null");
+    // Validate Department fields.
+    private void validateDepartmentData(String name, String description) {
+
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Department name cannot be blank"
+            );
         }
-        department.setActive(true);
-        department.setCreatedDate(new Date());
-        department.setFaculty(faculty);
-        return departmentRepository.save(department);
-    }
 
-
-
-    public List<Department> getAllDepartments() {
-        List<Department> departments = departmentRepository.findAll();
-        List<Department> activeDepartments = new ArrayList<>();
-        for (Department department : departments) {
-            if (department.isActive()) {
-                activeDepartments.add(department);
-            }
+        if (name.length() > 255) {
+            throw new IllegalArgumentException(
+                    "Department name cannot exceed 255 characters"
+            );
         }
-        return activeDepartments;
-    }
 
-
-
-    public Department getById(Long id) {
-        Optional<Department> department = departmentRepository.findById(id);
-        if (department.isPresent() && department.get().isActive()) {
-            return department.get();
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Department description cannot be blank"
+            );
         }
-        return null;
-    }
 
-
-    public Department updateDepartment(Long id, String name, String description, Faculty faculty) {
-        Department departmentToUpdate = getById(id);
-        if (departmentToUpdate == null) {
-            return null;
+        if (description.length() > 255) {
+            throw new IllegalArgumentException(
+                    "Department description cannot exceed 255 characters"
+            );
         }
-        departmentToUpdate.setName(name);
-        departmentToUpdate.setDescription(description);
-        departmentToUpdate.setFaculty(faculty);
-        departmentToUpdate.setUpdatedDate(new Date());
-        return departmentRepository.save(departmentToUpdate);
     }
 
 
 
-
-    public Boolean deleteById(Long id) {
-        Department departmentToDelete = getById(id);
-        if (departmentToDelete == null) {
-            return false;
-        }
-        departmentToDelete.setActive(false);
-        departmentToDelete.setUpdatedDate(new Date());
-        departmentRepository.save(departmentToDelete);
-        return true;
-    }
 }
